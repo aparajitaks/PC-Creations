@@ -28,6 +28,8 @@ connectDB();
 app.use('/api/leads', require('./routes/leads'));
 app.use('/api/reviews', require('./routes/reviews'));
 app.use('/api/content', require('./routes/content'));
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/courses', require('./routes/courses'));
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
