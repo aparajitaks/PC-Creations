@@ -43,21 +43,18 @@ export default function AcademySection({ onOpenAuthModal, onOpenDashboard, onSel
     <section id="academy" className="academy-section">
       <div className="container">
         {/* Section Header */}
-        <div className="section-header-row">
-          <div className="section-header-left">
-            <div className="badge-pill">
-              <GraduationCap size={16} />
-              <span>PC CREATIONS ACADEMY • BANGALORE</span>
-            </div>
-            <h2 className="section-title">
-              Agency Masterclasses & <span className="gradient-text">LMS Portal</span>
-            </h2>
-            <p className="section-subtitle">
-              Learn the exact frameworks, video production pipelines, and ad scaling strategies our agency uses daily for Bangalore's top brands. Only authorized students receive full video & certificate access.
-            </p>
+        <div className="text-center">
+          <div className="section-tag">
+            <GraduationCap size={15} />
+            <span>PC CREATIONS ACADEMY • BANGALORE</span>
           </div>
-
-          <div className="section-header-action">
+          <h2 className="section-title">
+            Agency Masterclasses & <span className="gradient-text">LMS Portal</span>
+          </h2>
+          <p className="section-desc">
+            Learn the exact frameworks, video production pipelines, and ad scaling strategies our agency uses daily for Bangalore's top brands. Only authorized students receive full video & certificate access.
+          </p>
+          <div className="academy-header-cta-row">
             {user ? (
               <button 
                 className="btn btn-primary"
@@ -149,16 +146,16 @@ export default function AcademySection({ onOpenAuthModal, onOpenDashboard, onSel
                       className="btn btn-outline btn-sm academy-syllabus-btn"
                       onClick={() => toggleSyllabus(course.id)}
                     >
-                      <span>{isSyllabusOpen ? 'Hide Syllabus' : 'View Syllabus Preview'}</span>
-                      {isSyllabusOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                      <span>{isSyllabusOpen ? 'Hide Syllabus' : 'Syllabus'}</span>
+                      {isSyllabusOpen ? <ChevronUp size={15} /> : <ChevronDown size={15} />}
                     </button>
 
                     <button 
                       className="btn btn-primary btn-sm"
                       onClick={() => handleCourseAction(course.id)}
                     >
-                      <span>{user ? 'Enter Course Player' : 'Unlock Access'}</span>
-                      <ArrowRight size={16} />
+                      <span>{user ? 'Open Course' : 'Unlock Access'}</span>
+                      <ArrowRight size={15} />
                     </button>
                   </div>
 
