@@ -88,9 +88,9 @@
 
 .brand-name {
   font-family: var(--font-heading);
-  font-weight: 800;
+  font-weight: 700;
   font-size: 1.15rem;
-  letter-spacing: 0.03em;
+  letter-spacing: -0.01em;
   color: var(--text-main);
   line-height: 1.2;
   white-space: nowrap;
@@ -117,7 +117,8 @@
 }
 
 .nav-link {
-  font-size: 0.88rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
   font-weight: 500;
   color: var(--text-muted);
   transition: color var(--transition-fast);
@@ -125,6 +126,7 @@
   white-space: nowrap;
   text-decoration: none;
   padding: 6px 4px;
+  letter-spacing: 0.01em;
 }
 
 .nav-link:hover {
@@ -229,7 +231,7 @@
 .hero-title {
   font-family: var(--font-heading);
   font-size: clamp(2.8rem, 6vw, 4.75rem);
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1.08;
   letter-spacing: -0.03em;
   margin-bottom: 24px;
@@ -239,6 +241,7 @@
 .hero-title .title-accent {
   background: var(--primary-gradient);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
 }
@@ -818,6 +821,7 @@
   background: #1e293b;
   outline: none;
   -webkit-appearance: none;
+  appearance: none;
 }
 
 .calc-slider::-webkit-slider-thumb {
@@ -894,6 +898,7 @@
 .result-value.accent {
   background: var(--primary-gradient);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
