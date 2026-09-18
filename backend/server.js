@@ -47,6 +47,15 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// Serve frontend build in production
+if (process.env.NODE_ENV === 'production') {
+  const distPath = path.join(__dirname, '../frontend/dist');
+  app.use(express.static(distPath));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(distPath, 'index.html'));
+  });
+}
+
 const server = app.listen(PORT, () => {
   console.log(`[PC Creations Server] Running on port http://localhost:${PORT}`);
 });

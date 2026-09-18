@@ -7,8 +7,8 @@
     "frontend": "cd frontend && npm run dev",
     "server": "cd backend && npm run dev",
     "client": "cd frontend && npm run dev",
-    "start": "cd backend && npm start",
-    "build": "cd frontend && npm run build",
+    "build": "npm --prefix backend install && npm --prefix frontend install && npm --prefix frontend run build",
+    "start": "node backend/server.js",
     "install-all": "npm install && cd backend && npm install && cd ../frontend && npm install"
   },
   "keywords": ["pc-creations", "mern", "marketing", "bangalore"]
