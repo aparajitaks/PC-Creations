@@ -30,7 +30,7 @@ export default function Navbar({
 
   return (
     <nav className="navbar">
-      <div className="container nav-container">
+      <div className="nav-container">
         <a 
           href="#home" 
           className="nav-brand" 
