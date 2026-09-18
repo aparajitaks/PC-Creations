@@ -47,6 +47,16 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`[PC Creations Server] Running on port http://localhost:${PORT}`);
+});
+
+server.on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    console.error(`\n[ERROR] Port ${PORT} is already in use.`);
+    console.error(`→ Run this to free it:  kill -9 $(lsof -ti :${PORT})\n`);
+    process.exit(1);
+  } else {
+    throw err;
+  }
 });
