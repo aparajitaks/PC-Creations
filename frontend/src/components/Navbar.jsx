@@ -50,16 +50,15 @@ export default function Navbar({
         {/* Desktop Links */}
         <ul className={`nav-links ${mobileMenuOpen ? 'mobile-open' : ''}`}>
           <li><a href="#services" className="nav-link" onClick={(e) => handleNavHome(e, '#services')}>Services</a></li>
-          <li><a href="#why-us" className="nav-link" onClick={(e) => handleNavHome(e, '#why-us')}>Why Us</a></li>
-          <li><a href="#process" className="nav-link" onClick={(e) => handleNavHome(e, '#process')}>Process</a></li>
-          <li><a href="#pricing" className="nav-link" onClick={(e) => handleNavHome(e, '#pricing')}>Pricing</a></li>
           <li>
             <a href="#academy" className="nav-link nav-link-academy" onClick={(e) => handleNavHome(e, '#academy')}>
               <span>Academy</span>
               <span className="nav-badge-pro">LMS</span>
             </a>
           </li>
-          <li><a href="#calculator" className="nav-link" onClick={(e) => handleNavHome(e, '#calculator')}>ROI Calculator</a></li>
+          <li><a href="#process" className="nav-link" onClick={(e) => handleNavHome(e, '#process')}>Process</a></li>
+          <li><a href="#pricing" className="nav-link" onClick={(e) => handleNavHome(e, '#pricing')}>Pricing</a></li>
+          <li><a href="#calculator" className="nav-link" onClick={(e) => handleNavHome(e, '#calculator')}>ROI Calc</a></li>
           <li><a href="#reviews" className="nav-link" onClick={(e) => handleNavHome(e, '#reviews')}>Reviews</a></li>
           <li><a href="#about" className="nav-link" onClick={(e) => handleNavHome(e, '#about')}>About</a></li>
         </ul>
@@ -93,14 +92,14 @@ export default function Navbar({
           )}
 
           <button 
-            className="btn btn-primary btn-sm"
+            className="btn btn-primary btn-sm nav-cta-btn"
             onClick={() => {
               closeMobileMenu();
               onOpenAuditModal();
             }}
           >
-            <span>Claim Free Audit</span>
-            <ArrowUpRight size={16} />
+            <span>Free Audit</span>
+            <ArrowUpRight size={15} />
           </button>
 
           <button 
@@ -108,7 +107,7 @@ export default function Navbar({
             onClick={toggleMobileMenu}
             aria-label="Toggle navigation menu"
           >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </div>
