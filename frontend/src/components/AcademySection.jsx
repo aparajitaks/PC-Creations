@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE from '../config/api';
 import { 
   GraduationCap, Clock, BookOpen, Star, ArrowRight, ShieldCheck, 
   ChevronDown, ChevronUp, PlayCircle, CheckCircle2, Award, Sparkles 
@@ -10,7 +11,7 @@ export default function AcademySection({ onOpenAuthModal, onOpenDashboard, onSel
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/api/courses')
+    fetch(`${API_BASE}/api/courses`)
       .then(res => res.json())
       .then(data => {
         if (data.success) {

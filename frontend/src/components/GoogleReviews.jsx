@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE from '../config/api';
 import { Star, ExternalLink, CheckCircle, MessageSquarePlus } from 'lucide-react';
 
 export default function GoogleReviews() {
@@ -15,7 +16,7 @@ export default function GoogleReviews() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/api/reviews')
+    fetch(`${API_BASE}/api/reviews`)
       .then(res => res.json())
       .then(json => {
         if (json.success) {

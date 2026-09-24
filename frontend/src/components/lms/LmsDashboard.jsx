@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE from '../../config/api';
 import { 
   BookOpen, Play, CheckCircle2, Clock, Award, LogOut, ArrowLeft, 
   Sparkles, ExternalLink, ChevronRight, UserCircle, Star, Shield, ArrowUpRight
@@ -27,7 +28,7 @@ export default function LmsDashboard({
       const headers = {};
       if (token) headers['Authorization'] = `Bearer ${token}`;
 
-      const res = await fetch('/api/courses', { headers });
+      const res = await fetch(`${API_BASE}/api/courses`, { headers });
       const data = await res.json();
       if (data.success) {
         setCourses(data.data);

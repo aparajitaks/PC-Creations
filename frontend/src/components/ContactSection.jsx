@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import API_BASE from '../config/api';
 import { Phone, Mail, Instagram, MapPin, Send, CheckCircle2 } from 'lucide-react';
 
 export default function ContactSection() {
@@ -10,7 +11,7 @@ export default function ContactSection() {
     e.preventDefault();
     setLoading(true);
     try {
-      await fetch('/api/leads', {
+      await fetch(`${API_BASE}/api/leads`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

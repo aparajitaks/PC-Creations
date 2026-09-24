@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE from '../config/api';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 
 export default function Services({ onSelectService }) {
@@ -6,7 +7,7 @@ export default function Services({ onSelectService }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/api/content/services')
+    fetch(`${API_BASE}/api/content/services`)
       .then(res => res.json())
       .then(data => {
         if (data.success) {

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE from '../config/api';
 import { X, CheckCircle, ArrowRight, Loader2, Sparkles } from 'lucide-react';
 
 export default function BookingModal({ isOpen, onClose, initialService, initialPlan, initialBudget }) {
@@ -32,7 +33,7 @@ export default function BookingModal({ isOpen, onClose, initialService, initialP
     setStatus({ loading: true, success: false, error: null });
 
     try {
-      const response = await fetch('/api/leads', {
+      const response = await fetch(`${API_BASE}/api/leads`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

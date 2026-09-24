@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE from '../../config/api';
 import { 
   ArrowLeft, CheckCircle2, Circle, PlayCircle, Lock, ChevronDown, 
   ChevronUp, Award, Clock, BookOpen, User, Check, ExternalLink,
@@ -27,7 +28,7 @@ export default function CoursePlayer({ courseId, token, user, onBackToDashboard,
       const headers = {};
       if (token) headers['Authorization'] = `Bearer ${token}`;
 
-      const res = await fetch(`/api/courses/${courseId}`, { headers });
+      const res = await fetch(`${API_BASE}/api/courses/${courseId}`, { headers });
       const data = await res.json();
 
       if (data.success) {
@@ -76,7 +77,7 @@ export default function CoursePlayer({ courseId, token, user, onBackToDashboard,
     setSavingProgress(true);
 
     try {
-      const res = await fetch(`/api/courses/${courseId}/progress`, {
+      const res = await fetch(`${API_BASE}/api/courses/${courseId}/progress`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

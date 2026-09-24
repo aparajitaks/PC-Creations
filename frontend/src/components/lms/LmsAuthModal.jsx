@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import API_BASE from '../../config/api';
 import { X, Lock, Mail, User, Sparkles, CheckCircle, ArrowRight, ShieldCheck, AlertCircle } from 'lucide-react';
 
 export default function LmsAuthModal({ isOpen, onClose, onLoginSuccess }) {
@@ -27,7 +28,7 @@ export default function LmsAuthModal({ isOpen, onClose, onLoginSuccess }) {
     setLoading(true);
     setError('');
     try {
-      const res = await fetch('/api/auth/login', {
+      const res = await fetch(`${API_BASE}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

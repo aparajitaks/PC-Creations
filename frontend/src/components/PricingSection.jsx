@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE from '../config/api';
 import { Check, ArrowRight, Sparkles } from 'lucide-react';
 
 export default function PricingSection({ onSelectPlan }) {
@@ -6,7 +7,7 @@ export default function PricingSection({ onSelectPlan }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/api/content/pricing')
+    fetch(`${API_BASE}/api/content/pricing`)
       .then(res => res.json())
       .then(data => {
         if (data.success) {
