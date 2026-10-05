@@ -29,7 +29,36 @@ interface ResultItem {
   following?: string;
 }
 
-const CONTENT_RESULTS: ResultItem[] = [
+// Top Results - displayed as large featured cards
+const TOP_RESULTS: ResultItem[] = [
+  {
+    image: "/assets/Sreenidhi Holidays Instagram Profile.png",
+    handle: "@sreenidhi_holidays_",
+    name: "Sreenidhi Holidays",
+    category: "TRAVEL AGENT / TRAVEL & TOURISM",
+    statValue: "49K",
+    statLabel: "followers",
+    followersValue: 49000,
+    posts: "325",
+    following: "1",
+    description: "Travel agent specializing in pilgrimage, leisure, and corporate travel with strong social media presence.",
+  },
+  {
+    image: "/assets/screenshot-3.png",
+    handle: "@shilpab",
+    name: "Shilpa B",
+    category: "FOOD & BEVERAGE / BEAUTY & MAKEUP",
+    statValue: "45.4K",
+    statLabel: "followers",
+    followersValue: 45400,
+    posts: "2,019",
+    following: "269",
+    description: "ISO 9001:2015 International Certified Professional MUA & Hair stylist Salon.",
+  },
+];
+
+// Regular Results - displayed in 3-column grid
+const REGULAR_RESULTS: ResultItem[] = [
   {
     image: "/assets/screenshot-2.png",
     handle: "@thefitnessgonewild",
@@ -115,18 +144,6 @@ const CONTENT_RESULTS: ResultItem[] = [
     description: "Cambridge Pathway School from EYP to A Level in Gunjur, East Bangalore.",
   },
   {
-    image: "/assets/screenshot-3.png",
-    handle: "@shilpab",
-    name: "Shilpa B",
-    category: "FOOD & BEVERAGE / BEAUTY & MAKEUP",
-    statValue: "45.4K",
-    statLabel: "followers",
-    followersValue: 45400,
-    posts: "2,019",
-    following: "269",
-    description: "ISO 9001:2015 International Certified Professional MUA & Hair stylist Salon.",
-  },
-  {
     image: "/assets/screenshot-4.png",
     handle: "@paramadventures",
     name: "Param Adventures",
@@ -139,6 +156,9 @@ const CONTENT_RESULTS: ResultItem[] = [
     description: "Adventure and technology content creator with growing community.",
   },
 ];
+
+// Combined for backward compatibility
+const CONTENT_RESULTS: ResultItem[] = [...TOP_RESULTS, ...REGULAR_RESULTS];
 
 const AD_RESULTS: ResultItem[] = [
   {
@@ -188,12 +208,9 @@ export function ResultsGallery() {
 
   const results = activeTab === "content" ? CONTENT_RESULTS : AD_RESULTS;
 
-  // Sort by follower count (highest first)
-  const sortedResults = [...results].sort((a, b) => b.followersValue - a.followersValue);
-
-  // Top result is the highest follower account
-  const featuredResult = sortedResults[0];
-  const gridResults = sortedResults.slice(1);
+  // Separate top results and regular results
+  const topResults = activeTab === "content" ? TOP_RESULTS : [];
+  const regularResults = activeTab === "content" ? REGULAR_RESULTS : results;
 
   return (
     <div className="relative">
@@ -237,9 +254,10 @@ export function ResultsGallery() {
         </div>
       </div>
 
-      {/* ── Featured Large Card (Creagenix Style) ── */}
-      {featuredResult && (
+      {/* ── Top Results (Large Cards - Stacked Vertically) ── */}
+      {topResults.map((result, index) => (
         <div
+          key={`top-${index}`}
           className={`rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl mb-10 ${
             activeTab === "ads"
               ? "bg-[#0F0F12] border border-[#FF9D00]/40"
@@ -263,14 +281,14 @@ export function ResultsGallery() {
                   activeTab === "ads" ? "text-white" : "text-[#000000]"
                 }`}
               >
-                {featuredResult.name}
+                {result.name}
               </h4>
               <p
                 className={`text-[11px] font-mono font-bold tracking-widest uppercase mb-6 ${
                   activeTab === "ads" ? "text-[#FF9D00]" : "text-[#FF9D00]"
                 }`}
               >
-                {featuredResult.category}
+                {result.category}
               </p>
               <div className="flex items-baseline gap-3 mb-6">
                 <span
@@ -278,7 +296,7 @@ export function ResultsGallery() {
                     activeTab === "ads" ? "text-[#FF9D00]" : "text-[#FF9D00]"
                   }`}
                 >
-                  {featuredResult.statValue}
+                  {result.statValue}
                 </span>
                 <span
                   className={`text-lg sm:text-xl font-semibold pb-1 ${
@@ -287,12 +305,12 @@ export function ResultsGallery() {
                       : "text-[rgba(0,0,0,0.7)]"
                   }`}
                 >
-                  {featuredResult.statLabel}
+                  {result.statLabel}
                 </span>
               </div>
 
               {/* Posts and Following for Top Result */}
-              {featuredResult.posts && featuredResult.following && (
+              {result.posts && result.following && (
                 <div className="flex items-center gap-4 mb-6">
                   <div>
                     <span
@@ -300,7 +318,7 @@ export function ResultsGallery() {
                         activeTab === "ads" ? "text-white" : "text-[#000000]"
                       }`}
                     >
-                      {featuredResult.posts}
+                      {result.posts}
                     </span>
                     <span
                       className={`text-xs ml-1 ${
@@ -318,7 +336,7 @@ export function ResultsGallery() {
                         activeTab === "ads" ? "text-white" : "text-[#000000]"
                       }`}
                     >
-                      {featuredResult.following}
+                      {result.following}
                     </span>
                     <span
                       className={`text-xs ml-1 ${
@@ -345,7 +363,7 @@ export function ResultsGallery() {
                   overflow: "hidden",
                 }}
               >
-                {featuredResult.description}
+                {result.description}
               </p>
             </div>
 
@@ -366,8 +384,8 @@ export function ResultsGallery() {
                 style={{ aspectRatio: "16 / 9" }}
               >
                 <img
-                  src={featuredResult.image}
-                  alt={featuredResult.name}
+                  src={result.image}
+                  alt={result.name}
                   className="w-full h-full object-contain"
                   loading="eager"
                 />
@@ -375,11 +393,11 @@ export function ResultsGallery() {
             </div>
           </div>
         </div>
-      )}
+      ))}
 
       {/* ── Grid of Smaller Cards ── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {gridResults.map((result, index) => {
+        {regularResults.map((result, index) => {
           const isLowFollower = result.followersValue < 500;
 
           return (
