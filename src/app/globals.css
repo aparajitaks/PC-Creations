@@ -1,0 +1,1086 @@
+@import "tailwindcss";
+
+/* ============================================================
+   DESIGN TOKENS — Brand Color System
+   ============================================================ */
+:root {
+  /* Brand Colors */
+  --color-black:       #000000;
+  --color-off-white:   #F7F8FA;
+  --color-orange:      #FF9D00;
+  --color-blue:        #3155E7;
+
+  /* Opacity variants — black */
+  --color-black-90:    rgba(0,   0,   0,   0.90);
+  --color-black-80:    rgba(0,   0,   0,   0.80);
+  --color-black-60:    rgba(0,   0,   0,   0.60);
+  --color-black-40:    rgba(0,   0,   0,   0.40);
+  --color-black-20:    rgba(0,   0,   0,   0.20);
+  --color-black-10:    rgba(0,   0,   0,   0.10);
+  --color-black-05:    rgba(0,   0,   0,   0.05);
+
+  /* Opacity variants — off-white */
+  --color-off-white-90: rgba(247, 248, 250, 0.90);
+  --color-off-white-60: rgba(247, 248, 250, 0.60);
+  --color-off-white-20: rgba(247, 248, 250, 0.20);
+
+  /* Opacity variants — orange */
+  --color-orange-90:   rgba(255, 157,   0, 0.90);
+  --color-orange-60:   rgba(255, 157,   0, 0.60);
+  --color-orange-20:   rgba(255, 157,   0, 0.20);
+  --color-orange-10:   rgba(255, 157,   0, 0.10);
+
+  /* Opacity variants — blue */
+  --color-blue-90:     rgba( 49,  85, 231, 0.90);
+  --color-blue-60:     rgba( 49,  85, 231, 0.60);
+  --color-blue-20:     rgba( 49,  85, 231, 0.20);
+  --color-blue-10:     rgba( 49,  85, 231, 0.10);
+
+  /* Semantic aliases */
+  --bg-primary:        var(--color-off-white);
+  --bg-card:           #ffffff;
+  --text-primary:      var(--color-black);
+  --text-secondary:    var(--color-black-60);
+  --text-muted:        var(--color-black-40);
+  --accent-cta:        var(--color-orange);
+  --accent-digital:    var(--color-blue);
+  --border-subtle:     var(--color-black-10);
+  --border-strong:     var(--color-black-20);
+
+  /* ============================================================
+     TYPOGRAPHY SCALE — fluid clamp() values
+     ============================================================ */
+  --font-sans:   'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono:   'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+
+  /* Hero display — only used for main hero headline */
+  --text-hero:    clamp(3.5rem, 2rem + 7.5vw, 8rem);
+
+  /* Section display heading — large, controlled  */
+  --text-display: clamp(2.75rem, 1.5rem + 4.5vw, 5.5rem);
+
+  /* Standard section heading */
+  --text-section: clamp(2.25rem, 1.25rem + 3.5vw, 4.25rem);
+
+  /* Sub-heading */
+  --text-h3:      clamp(1.375rem, 1rem + 1.25vw, 2rem);
+
+  /* Body scale */
+  --text-xl:      clamp(1.125rem, 1rem + 0.5vw,  1.25rem);
+  --text-lg:      clamp(1rem,     0.9rem + 0.4vw, 1.125rem);
+  --text-base:    1rem;
+  --text-sm:      0.875rem;
+  --text-xs:      0.75rem;
+  --text-2xs:     0.6875rem; /* 11px */
+
+  /* Font weights */
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+  --weight-black:    900;
+
+  /* Line heights */
+  --leading-tight:   0.92;
+  --leading-snug:    1.1;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.65;
+
+  /* Letter spacings */
+  --tracking-tight:   -0.03em;
+  --tracking-snug:    -0.02em;
+  --tracking-normal:   0em;
+  --tracking-wide:     0.05em;
+  --tracking-wider:    0.1em;
+  --tracking-widest:   0.18em;
+
+  /* ============================================================
+     SPACING SCALE — named semantically
+     ============================================================ */
+  /* Named semantic scale */
+  --space-xs:   0.25rem;   /*  4px */
+  --space-sm:   0.5rem;    /*  8px */
+  --space-md:   1rem;      /* 16px */
+  --space-lg:   1.5rem;    /* 24px */
+  --space-xl:   2rem;      /* 32px */
+  --space-2xl:  3rem;      /* 48px */
+  --space-3xl:  5rem;      /* 80px */
+  --space-4xl:  8rem;      /* 128px */
+
+  /* Numeric aliases */
+  --space-1:    0.25rem;
+  --space-2:    0.5rem;
+  --space-3:    0.75rem;
+  --space-4:    1rem;
+  --space-5:    1.25rem;
+  --space-6:    1.5rem;
+  --space-8:    2rem;
+  --space-10:   2.5rem;
+  --space-12:   3rem;
+  --space-16:   4rem;
+  --space-20:   5rem;
+  --space-24:   6rem;
+  --space-32:   8rem;
+
+  /* ── Section rhythm — fluid, consistent ── */
+  /* Fixed navbar height (70px open / 56px scrolled) + breathing room.
+     Keeps anchor targets from landing underneath the navbar. */
+  --navbar-offset:    84px;
+  /* Major sections (hero, about, portfolio) — 96px → 160px */
+  --section-py-major: clamp(6rem, 8vw + 2rem, 10rem);
+  /* Standard sections — 80px → 128px */
+  --section-py:       clamp(5rem, 6vw + 2rem, 8rem);
+  /* Compact sections — 56px → 96px */
+  --section-py-sm:    clamp(3.5rem, 4vw + 1rem, 6rem);
+  /* Horizontal margins — 20px → 80px */
+  --section-px:       clamp(1.25rem, 4vw, 5rem);
+
+  /* Inner block gaps */
+  --block-gap-lg: clamp(3rem, 4vw, 5rem);    /* header→content */
+  --block-gap-md: clamp(2rem, 3vw, 3.5rem);  /* between cards */
+  --block-gap-sm: clamp(1rem, 1.5vw, 1.5rem); /* inside cards */
+
+  /* Container max-widths */
+  --container-sm:  640px;
+  --container-md:  768px;
+  --container-lg:  1024px;
+  --container-xl:  1280px;
+  --container-2xl: 1440px;
+
+  /* ============================================================
+     BORDERS & RADII
+     ============================================================ */
+  --radius-sm:   0.375rem;
+  --radius-md:   0.5rem;
+  --radius-lg:   0.75rem;
+  --radius-xl:   1rem;
+  --radius-2xl:  1.5rem;
+  --radius-3xl:  2rem;
+  --radius-full: 9999px;
+
+  /* ============================================================
+     SHADOWS
+     ============================================================ */
+  --shadow-sm:   0 1px 3px var(--color-black-10);
+  --shadow-md:   0 4px 16px var(--color-black-10);
+  --shadow-lg:   0 8px 32px var(--color-black-10);
+  --shadow-xl:   0 16px 48px var(--color-black-10);
+  --shadow-card: 0 2px 8px var(--color-black-10), 0 1px 2px var(--color-black-05);
+
+  /* ============================================================
+     TRANSITIONS
+     ============================================================ */
+  --ease-out:      cubic-bezier(0.0, 0.0, 0.2, 1.0);
+  --ease-in-out:   cubic-bezier(0.4, 0.0, 0.2, 1.0);
+  --ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1.0);
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 400ms;
+
+  /* ============================================================
+     Z-INDEX LAYERS
+     ============================================================ */
+  --z-below:   -1;
+  --z-base:     0;
+  --z-raised:   10;
+  --z-dropdown: 100;
+  --z-sticky:   200;
+  --z-overlay:  300;
+  --z-modal:    400;
+  --z-toast:    500;
+}
+
+/* ============================================================
+   TAILWIND v4 THEME EXTENSION
+   ============================================================ */
+@theme inline {
+  --color-brand-black:     var(--color-black);
+  --color-brand-off-white: var(--color-off-white);
+  --color-brand-orange:    var(--color-orange);
+  --color-brand-blue:      var(--color-blue);
+  --color-background:      var(--bg-primary);
+  --color-foreground:      var(--text-primary);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+}
+
+/* ============================================================
+   GLOBAL RESET & BASE STYLES
+   ============================================================ */
+/* NOTE: The Tailwind v4 preflight (@layer base) already resets
+   margins, padding and box-sizing. A custom UNLAYERED `* { margin:0; padding:0 }`
+   would override every Tailwind padding/margin utility (unlayered styles
+   beat layered utilities in the cascade), collapsing all section padding.
+   Do not re-add it. */
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  font-size: 16px;
+  /* Applies to every in-page jump: navbar clicks, hero CTAs, footer
+     links and native hash loads alike. */
+  scroll-padding-top: var(--navbar-offset);
+}
+
+/* Belt-and-braces for scrollIntoView / scroll-snap implementations
+   that read the target's scroll margin rather than the scrollport's
+   scroll padding. */
+section[id] {
+  scroll-margin-top: var(--navbar-offset);
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  font-weight: var(--weight-regular);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   REUSABLE LAYOUT CLASSES
+   ============================================================ */
+
+/* Primary content container — 1400px max, centered with clamp(24px, 5vw, 80px) padding */
+.pc-container {
+  width: 100%;
+  max-width: 1400px;
+  margin-inline: auto;
+  padding-inline: clamp(24px, 5vw, 80px);
+}
+
+/* Narrower container for text-heavy sections */
+.pc-container-narrow {
+  width: 100%;
+  max-width: var(--container-xl);
+  margin-inline: auto;
+  padding-inline: var(--section-px);
+}
+
+/* Standard section vertical rhythm */
+.pc-section {
+  padding-block: var(--section-py);
+  overflow-x: hidden;
+}
+
+/* Major section rhythm */
+.pc-section-major {
+  padding-block: var(--section-py-major);
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   TYPOGRAPHY UTILITIES
+   ============================================================ */
+
+/* Hero headline — only for the main hero */
+.type-hero {
+  font-size: var(--text-hero);
+  font-weight: var(--weight-black);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+}
+
+/* Section display heading */
+.type-display {
+  font-size: var(--text-display);
+  font-weight: var(--weight-black);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-tight);
+}
+
+/* Standard section heading */
+.type-section {
+  font-size: var(--text-section);
+  font-weight: var(--weight-black);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-tight);
+}
+
+/* Sub-heading */
+.type-h3 {
+  font-size: var(--text-h3);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-snug);
+}
+
+/* Body text */
+.type-body-lg  { font-size: var(--text-xl);   line-height: var(--leading-relaxed); }
+.type-body     { font-size: var(--text-base);  line-height: var(--leading-relaxed); }
+.type-body-sm  { font-size: var(--text-sm);    line-height: var(--leading-relaxed); }
+
+/* Label */
+.type-label {
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+}
+
+/* Caption */
+.type-caption {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  line-height: var(--leading-relaxed);
+}
+
+/* ============================================================
+   GRID SYSTEM
+   ============================================================ */
+.grid-site {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--space-6);
+}
+
+@media (max-width: 1024px) {
+  .grid-site { grid-template-columns: repeat(8, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .grid-site { grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
+}
+
+/* ============================================================
+   COMPONENT UTILITIES
+   ============================================================ */
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background-color: var(--border-subtle);
+}
+
+/* ============================================================
+   SERVICES — editorial service grid
+   ============================================================ */
+
+/* ── Section hero ── */
+.svc-hero {
+  margin-bottom: clamp(3.5rem, 6vw, 6.5rem);
+}
+
+.svc-hero-label {
+  margin-bottom: clamp(1.75rem, 3vw, 2.75rem);
+}
+
+.svc-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2rem, 4vw, 4rem);
+  align-items: end;
+}
+
+/* query container — the display heading scales with its
+   own column so "EVERYTHING" always fits at 58% width */
+.svc-hero-title-wrap {
+  container-type: inline-size;
+}
+
+.svc-hero-title {
+  margin: 0;
+  font-size: 2.75rem;
+  font-size: clamp(2.75rem, 15.6cqw, 7.25rem);
+  font-weight: var(--weight-black);
+  line-height: 0.94;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: var(--color-black);
+}
+
+.svc-hero-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.05em;
+}
+
+.svc-hero-line span {
+  display: block;
+  will-change: transform;
+}
+
+.svc-hero-sub {
+  margin: 0;
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed);
+  color: var(--text-secondary);
+  max-width: 26rem;
+}
+
+@media (min-width: 1024px) {
+  .svc-hero-grid { grid-template-columns: repeat(12, 1fr); }
+  .svc-hero-title-wrap { grid-column: 1 / span 7; }
+  .svc-hero-sub { grid-column: 9 / span 4; }
+}
+
+/* hairline divider with an orange tick */
+.svc-hero-rule {
+  position: relative;
+  margin-top: clamp(2.5rem, 4vw, 4rem);
+  height: 1px;
+  background: rgba(0, 0, 0, 0.09);
+}
+
+.svc-hero-rule::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -0.5px;
+  width: 72px;
+  height: 2px;
+  background: var(--color-orange);
+}
+
+/* ── Grid — 3 col desktop · 2 col tablet · 1 col mobile ── */
+.svc-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1.25rem, 2vw, 2rem);
+}
+
+@media (min-width: 768px) {
+  .svc-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .svc-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ── Service module ── */
+.svc-block {
+  position: relative;
+  overflow: hidden; /* STRICT CONTAINMENT: 3D images never leave the card */
+  display: flex;
+  flex-direction: column;
+  min-height: 310px;
+  padding: clamp(1.75rem, 2.5vw, 2.5rem);
+  background: #ffffff;
+  border: 1px solid #E5E5E5;
+  border-radius: 14px;
+  transition:
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* orange accent line — draws in on hover */
+.svc-accent {
+  position: absolute;
+  top: -1px;
+  left: 16px;
+  width: 44px;
+  height: 3px;
+  border-radius: 0 0 3px 3px;
+  background: var(--color-orange);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 3;
+}
+
+.svc-content-layer {
+  position: relative;
+  z-index: 2;
+  pointer-events: auto;
+}
+
+.svc-top {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: clamp(1.5rem, 2vw, 2.25rem);
+}
+
+.svc-index {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  transition: color 300ms ease;
+}
+
+.svc-index-rule {
+  width: 28px;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.svc-title {
+  margin: 0;
+  font-size: clamp(1.375rem, 1.15rem + 0.9vw, 1.75rem);
+  font-weight: var(--weight-black);
+  letter-spacing: var(--tracking-tight);
+  line-height: 1.15;
+  color: var(--color-black);
+  transition: transform 380ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.svc-desc {
+  margin: 0.875rem 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  max-width: 82%;
+}
+
+.svc-footer {
+  position: relative;
+  z-index: 2;
+  margin-top: auto;
+  padding-top: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.svc-line {
+  flex: 1;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.1);
+  transition: background 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.svc-arrow {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #E5E5E5;
+  background: #ffffff;
+  color: var(--color-black);
+  transition:
+    border-color 380ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 380ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 380ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.svc-arrow svg {
+  width: 15px;
+  height: 15px;
+  transition: transform 380ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* hover state — lift, tint, orange accents (fine pointers only) */
+@media (hover: hover) and (pointer: fine) {
+  .svc-block:hover {
+    transform: translateY(-6px);
+    border-color: rgba(255, 157, 0, 0.5);
+    background: #FFFDF8;
+    box-shadow: 0 28px 56px -28px rgba(0, 0, 0, 0.22);
+  }
+
+  .svc-block:hover .svc-accent { transform: scaleX(1); }
+  .svc-block:hover .svc-index { color: var(--color-orange); }
+  .svc-block:hover .svc-title { transform: translateX(3px); }
+  .svc-block:hover .svc-line { background: var(--color-orange); }
+
+  .svc-block:hover .svc-arrow {
+    border-color: var(--color-orange);
+    background: rgba(255, 157, 0, 0.08);
+    color: var(--color-orange);
+  }
+
+  .svc-block:hover .svc-arrow svg { transform: translate(2.5px, -2.5px); }
+}
+
+/* ── 3D creative-asset contained inside card ── */
+.svc-stage {
+  position: absolute;
+  right: 1.25rem;
+  bottom: 2.75rem;
+  width: clamp(105px, 28%, 140px);
+  aspect-ratio: 3 / 4;
+  pointer-events: none;
+  z-index: 1;
+  perspective: 800px;
+}
+
+.svc-3d-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.06);
+  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.25));
+  background: #111111;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+}
+
+.svc-3d-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 600ms ease;
+}
+
+.svc-3d-active {
+  opacity: 1;
+  z-index: 2;
+}
+
+.svc-3d-hidden {
+  opacity: 0;
+  z-index: 1;
+}
+
+@media (max-width: 640px) {
+  .svc-stage {
+    right: 1rem;
+    bottom: 2.25rem;
+    width: clamp(90px, 26%, 115px);
+  }
+}
+
+/* ── CTA tile — the final module ── */
+.svc-cta {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+  padding: clamp(1.75rem, 2.5vw, 2.5rem);
+  background: var(--color-orange);
+  border: 1px solid var(--color-orange);
+  border-radius: 14px;
+  color: var(--color-black);
+  transition:
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.svc-cta-plus {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--color-black);
+  color: var(--color-orange);
+  margin-bottom: 2rem;
+}
+
+.svc-cta-plus svg {
+  width: 18px;
+  height: 18px;
+}
+
+.svc-cta-title {
+  margin: 0;
+  font-size: clamp(1.5rem, 1.3rem + 1vw, 2rem);
+  font-weight: var(--weight-black);
+  letter-spacing: var(--tracking-tight);
+  line-height: 1.1;
+}
+
+.svc-cta-desc {
+  margin: 0.75rem 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: rgba(0, 0, 0, 0.72);
+}
+
+.svc-cta-foot {
+  margin-top: auto;
+  padding-top: 2rem;
+}
+
+.svc-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.875rem 1.5rem;
+  border-radius: 999px;
+  background: var(--color-black);
+  color: #F7F8FA;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  transition:
+    gap 300ms ease,
+    background-color 300ms ease,
+    color 300ms ease;
+}
+
+.svc-cta-btn svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 380ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .svc-cta:hover {
+    transform: translateY(-6px);
+    background: #F29500;
+    box-shadow: 0 28px 56px -24px rgba(255, 157, 0, 0.55);
+  }
+
+  .svc-cta:hover .svc-cta-btn {
+    background: #F7F8FA;
+    color: #000000;
+  }
+
+  .svc-cta:hover .svc-cta-btn svg { transform: translate(3px, -3px); }
+}
+
+/* ── Graphic illustration sitting in right corner ── */
+.svc-cta-graphic {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  pointer-events: none;
+  overflow: visible;
+}
+
+@media (min-width: 640px) {
+  .svc-cta-graphic {
+    grid-column: span 1;
+    justify-content: flex-end;
+  }
+}
+
+@media (min-width: 1024px) {
+  .svc-cta-graphic {
+    grid-column: span 2;
+    justify-content: flex-end;
+  }
+}
+
+.svc-cta-graphic-img {
+  width: auto;
+  max-width: 100%;
+  max-height: 420px;
+  object-fit: contain;
+  object-position: bottom right;
+  filter: drop-shadow(0 20px 32px rgba(0, 0, 0, 0.08));
+  user-select: none;
+  pointer-events: none;
+  animation: ctaFloat 7s ease-in-out infinite;
+}
+
+@keyframes ctaFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@media (max-width: 639px) {
+  .svc-cta-graphic {
+    justify-content: center;
+    margin-top: 1.25rem;
+  }
+  .svc-cta-graphic-img {
+    max-height: 280px;
+    object-position: center bottom;
+  }
+}
+
+/* ============================================================
+   ACCESSIBILITY
+   ============================================================ */
+:focus-visible {
+  outline: 2px solid var(--color-orange);
+  outline-offset: 3px;
+}
+
+::selection {
+  background-color: var(--color-orange-20);
+  color: var(--color-black);
+}
+
+/* ============================================================
+   BASE ELEMENT STYLES
+   ============================================================ */
+a {
+  text-decoration: none;
+}
+
+section {
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar        { width: 6px; }
+::-webkit-scrollbar-track  { background: var(--color-off-white); }
+::-webkit-scrollbar-thumb  { background: var(--color-black-20); border-radius: var(--radius-full); }
+::-webkit-scrollbar-thumb:hover { background: var(--color-black-40); }
+
+/* ============================================================
+   GSAP — initial hidden state
+   ============================================================ */
+.gsap-hidden {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+/* ============================================================
+   PREFERS-REDUCED-MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .gsap-hidden,
+  .about-headline .line,
+  .contact-headline .line,
+  .port-headline span,
+  .process-step,
+  .about-eyebrow,
+  .about-body,
+  .about-pill,
+  .about-image-wrap,
+  .contact-eyebrow,
+  .contact-sub,
+  .contact-form,
+  .process-header,
+  .svc-hero-label,
+  .svc-hero-sub,
+  .svc-hero-line span,
+  .svc-block,
+  .svc-cta {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ============================================================
+   CONTACT FORM — dark autofill fix
+   ============================================================ */
+#contact input:-webkit-autofill,
+#contact input:-webkit-autofill:hover,
+#contact input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #F7F8FA;
+  -webkit-box-shadow: 0 0 0px 1000px rgba(247, 248, 250, 0.06) inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* ============================================================
+   SCROLL ANIMATION SYSTEM
+   Premium reveal classes — GPU-friendly (transform + opacity only)
+   ============================================================ */
+
+/* ── Base hidden states ── */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(30px) scale(0.98);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-fade {
+  opacity: 0;
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity;
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.98) translateY(30px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-24px) translateY(30px) scale(0.98);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(24px) translateY(30px) scale(0.98);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+/* Text clip reveal */
+.reveal-clip {
+  opacity: 0;
+  transform: translateY(20px);
+  clip-path: inset(100% 0 0 0);
+  transition:
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    clip-path 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, clip-path;
+}
+
+/* ── Revealed state (added by IntersectionObserver) ── */
+.is-revealed.reveal-up,
+.is-revealed.reveal-fade,
+.is-revealed.reveal-scale,
+.is-revealed.reveal-clip {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(0 0 0 0);
+}
+
+/* ── Image parallax depth ── */
+.reveal-img {
+  overflow: hidden;
+  transform: translateZ(0); /* GPU layer hint */
+}
+.reveal-img img,
+.reveal-img video {
+  transform: scale(1.06) translateY(0);
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+.reveal-img.is-revealed img,
+.reveal-img.is-revealed video {
+  transform: scale(1) translateY(0);
+}
+
+/* ── Stagger child default hidden state ── */
+[data-stagger-child] {
+  opacity: 0;
+  transform: translateY(30px) scale(0.98);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+[data-stagger-child].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Card hover lift (services, portfolio) ── */
+.hover-lift {
+  transition:
+    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.3s ease;
+  will-change: transform;
+}
+.hover-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 48px rgba(0,0,0,0.10);
+}
+
+/* ── Premium card hover — -8px lift, 1.018 scale, 400ms ease-out ── */
+@media (hover: hover) and (pointer: fine) {
+  .card-hover-premium {
+    transition:
+      transform 400ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 400ms cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 400ms cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 400ms cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+  .card-hover-premium:hover {
+    transform: translateY(-8px) scale(1.018);
+    box-shadow: 0 28px 64px -24px rgba(0, 0, 0, 0.22);
+  }
+}
+
+/* ── Idle float keyframes — asynchronous durations for minority cards ──
+   Only active when user has not requested reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .float-idle-1 {
+    animation: float-idle-kf-1 5s ease-in-out infinite alternate;
+    will-change: transform;
+    animation-delay: -0.8s;
+  }
+  .float-idle-2 {
+    animation: float-idle-kf-2 6.2s ease-in-out infinite alternate;
+    will-change: transform;
+    animation-delay: -2.4s;
+  }
+  .float-idle-3 {
+    animation: float-idle-kf-3 7.1s ease-in-out infinite alternate;
+    will-change: transform;
+    animation-delay: -4.1s;
+  }
+
+  @keyframes float-idle-kf-1 {
+    0%   { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(0, -5px, 0); }
+  }
+  @keyframes float-idle-kf-2 {
+    0%   { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(0, -6px, 0); }
+  }
+  @keyframes float-idle-kf-3 {
+    0%   { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(0, -5.5px, 0); }
+  }
+}
+
+/* Suppress float animations while the card is being hovered. */
+@media (hover: hover) and (pointer: fine) {
+  .card-hover-premium:hover,
+  .svc-block:hover,
+  .svc-cta:hover,
+  .pricing-card:hover,
+  [data-float-suspend="true"] {
+    animation: none !important;
+  }
+}
+
+/* ── Navbar scroll-compact state ── */
+#navbar.is-scrolled {
+  /* height delegated to .nav-inner below — placeholder kept for hook parity */
+  --_nav-scroll: 1;
+}
+#navbar.is-scrolled .nav-inner {
+  height: 56px; /* compact from 70px */
+}
+
+/* ── Reduced motion overrides ── */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-up,
+  .reveal-fade,
+  .reveal-scale,
+  .reveal-left,
+  .reveal-right,
+  .reveal-clip,
+  .reveal-img img,
+  .reveal-img video,
+  [data-stagger-child],
+  .float-idle-1,
+  .float-idle-2,
+  .float-idle-3 {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
