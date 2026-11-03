@@ -174,13 +174,13 @@ export function AboutSection() {
               />
               {/* Subtle bottom shadow overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-[#000000] via-transparent to-transparent opacity-60 pointer-events-none" />
-              {/* Founder label */}
-              <div className="absolute bottom-6 left-6 right-6">
-                <div className="inline-flex flex-col bg-[rgba(0,0,0,0.75)] backdrop-blur-md px-4 py-2.5 rounded-xl border border-[rgba(255,157,0,0.35)] shadow-lg">
-                  <span className="text-sm font-bold text-[#FF9D00] tracking-wide">
+              {/* Founder pill badge at bottom-left */}
+              <div className="absolute bottom-6 left-6">
+                <div className="inline-flex flex-col bg-[rgba(0,0,0,0.70)] backdrop-blur-md px-3.5 py-2 rounded-2xl border border-[rgba(255,157,0,0.40)] shadow-lg">
+                  <span className="text-xs font-mono font-bold text-[#FF9D00] tracking-wider uppercase">
                     Akash Shetty
                   </span>
-                  <span className="text-[11px] font-mono font-medium text-[rgba(247,248,250,0.85)] tracking-wider mt-0.5">
+                  <span className="text-[10px] font-mono font-medium text-[rgba(247,248,250,0.85)] tracking-wider mt-0.5">
                     BCOM , DIMAP,  MAPC,  LLB
                   </span>
                 </div>
