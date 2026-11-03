@@ -30,6 +30,12 @@ const CLIENT_LOGOS = [
     height: 219,
   },
   {
+    name: "Cutibless Aesthetics",
+    src: "/assets/clients/client-cutibless.png",
+    width: 462,
+    height: 214,
+  },
+  {
     name: "World Tour International",
     src: "/assets/clients/client-world-tour.png",
     width: 593,
@@ -46,6 +52,12 @@ const CLIENT_LOGOS = [
     src: "/assets/clients/client-samruddhi-construction.png",
     width: 222,
     height: 213,
+  },
+  {
+    name: "SpaceXpress Ventures",
+    src: "/assets/clients/client-spacexpress.png",
+    width: 264,
+    height: 214,
   },
   {
     name: "Sri Tourist",
@@ -66,9 +78,21 @@ const CLIENT_LOGOS = [
     height: 200,
   },
   {
+    name: "CredSure Finance",
+    src: "/assets/clients/client-credsure-finance.png",
+    width: 363,
+    height: 214,
+  },
+  {
     name: "Prana Yoga Studio",
     src: "/assets/clients/client-prana-yoga.png",
     width: 214,
+    height: 214,
+  },
+  {
+    name: "V Royal Emblem",
+    src: "/assets/clients/client-v-royal.png",
+    width: 255,
     height: 214,
   },
   {
@@ -82,6 +106,12 @@ const CLIENT_LOGOS = [
     src: "/assets/clients/client-sanvi-travels.png",
     width: 255,
     height: 201,
+  },
+  {
+    name: "Royal Wings Crest",
+    src: "/assets/clients/client-wings-crest.png",
+    width: 327,
+    height: 214,
   },
   {
     name: "Radiant Expeditions Tours & Travels",
