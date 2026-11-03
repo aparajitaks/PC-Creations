@@ -1142,10 +1142,23 @@ section {
   .reveal-right,
   .reveal-clip,
   [data-stagger-child],
+  .hero-title-line,
+  .hero-subtitle,
+  .hero-actions,
+  .hero-metrics,
   .h-entrance,
   .h-bubble,
   .h-emoji,
   .h-graph,
+  .h-laptop,
+  .h-fb,
+  .h-ig,
+  .h-wa,
+  .h-like-btn,
+  .h-comment-btn,
+  .h-share-btn,
+  .h-mkt,
+  .h-laptop-glow,
   .about-headline .line,
   .contact-headline .line,
   .port-headline span,
@@ -1174,6 +1187,16 @@ section {
     transform: none !important;
     clip-path: none !important;
     visibility: visible !important;
+  }
+
+  /* Hero print sizing override (prevents dvh from expanding to entire document height) */
+  #home {
+    min-height: 900px !important;
+    height: 900px !important;
+  }
+  #home .pc-container {
+    min-height: 0 !important;
+    height: 100% !important;
   }
 
   /* Navbar: static on first page only (prevents overlapping subsequent pages) */
@@ -1227,6 +1250,23 @@ section {
   h1, h2, h3, h4, h5, h6 {
     break-after: avoid !important;
     page-break-after: avoid !important;
+  }
+
+  /* Client logos marquee print presentation */
+  #clients .group {
+    mask-image: none !important;
+    -webkit-mask-image: none !important;
+    overflow: visible !important;
+  }
+  #clients .animate-client-marquee {
+    animation: none !important;
+    transform: none !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    row-gap: 1.25rem !important;
+  }
+  #clients [aria-hidden="true"] {
+    display: none !important;
   }
 }
 

@@ -184,6 +184,7 @@ const MARQUEE_ITEMS = [
 export function ClientLogosMarquee() {
   return (
     <section
+      id="clients"
       aria-label="Brands and clients who trust PC Creations"
       className="bg-[#000000] py-14 sm:py-18 lg:py-20 overflow-hidden relative border-y border-[rgba(247,248,250,0.08)]"
     >

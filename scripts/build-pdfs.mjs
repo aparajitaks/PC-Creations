@@ -23,8 +23,9 @@ async function buildAllPdfs() {
     deviceScaleFactor: 2,
   });
 
-  console.log('Loading website at http://localhost:3000...');
-  await page.goto('http://localhost:3000', {
+  const targetUrl = process.env.SITE_URL || 'http://localhost:3001';
+  console.log(`Loading website at ${targetUrl}...`);
+  await page.goto(targetUrl, {
     waitUntil: 'networkidle0',
     timeout: 60000,
   });
@@ -49,28 +50,71 @@ async function buildAllPdfs() {
     });
   });
 
-  await new Promise((r) => setTimeout(r, 2500));
+  await new Promise((r) => setTimeout(r, 4000));
 
   // Prepare DOM elements
   await page.evaluate(() => {
-    // 1. Reveal all hidden elements
+    // 0. Kill ALL animations and transitions globally, then force everything visible
+    const killAnim = document.createElement('style');
+    killAnim.id = 'pdf-kill-animations';
+    killAnim.textContent = `
+      *, *::before, *::after {
+        animation-play-state: paused !important;
+        animation-duration: 0s !important;
+        transition-duration: 0s !important;
+      }
+      .hero-title-line, .hero-subtitle, .hero-actions, .hero-metrics,
+      .h-entrance, .h-bubble, .h-emoji, .h-graph,
+      .h-laptop, .h-fb, .h-ig, .h-wa, .h-like-btn, .h-comment-btn, .h-share-btn,
+      .h-mkt, .h-laptop-glow,
+      .svc-hero-label, .svc-hero-sub, .svc-hero-line span, .svc-cta,
+      .contact-eyebrow, .contact-sub, .contact-form, .contact-headline .line,
+      .reveal-up, .reveal-fade, .reveal-scale, .reveal-left, .reveal-right, .reveal-clip,
+      .gsap-hidden, [data-stagger-child],
+      .location-info, .location-map, .location-map-button,
+      .pricing-header, .pricing-card, .svc-cta-graphic,
+      .about-headline .line, .about-body, .about-pill, .about-image-wrap,
+      .process-step, .process-header {
+        opacity: 1 !important;
+        transform: none !important;
+        clip-path: none !important;
+        visibility: visible !important;
+        will-change: auto !important;
+      }
+    `;
+    document.head.appendChild(killAnim);
+
+    // 1. Reveal all class-based hidden elements
     const selectors = [
       '.reveal-up', '.reveal-fade', '.reveal-scale', '.reveal-left', '.reveal-right', '.reveal-clip',
       '.gsap-hidden', '[data-stagger-child]', '.location-info', '.location-map', '.location-map-button',
       '.pricing-header', '.pricing-card', '.svc-cta-graphic', '.about-headline .line', '.about-body',
-      '.about-pill', '.about-image-wrap', '.process-step', '.process-header'
+      '.about-pill', '.about-image-wrap', '.process-step', '.process-header',
+      '.hero-title-line', '.hero-subtitle', '.hero-actions', '.hero-metrics',
+      '.svc-hero-label', '.svc-hero-sub', '.svc-cta',
+      '.contact-eyebrow', '.contact-sub', '.contact-form', '.contact-headline .line',
     ];
     document.querySelectorAll(selectors.join(',')).forEach((el) => {
-      el.style.opacity = '1';
-      el.style.transform = 'none';
-      el.style.clipPath = 'none';
-      el.style.visibility = 'visible';
+      el.style.setProperty('opacity', '1', 'important');
+      el.style.setProperty('transform', 'none', 'important');
+      el.style.setProperty('clip-path', 'none', 'important');
+      el.style.setProperty('visibility', 'visible', 'important');
     });
 
-    document.querySelectorAll('.h-entrance, .h-bubble, .h-emoji, .h-graph').forEach((el) => {
-      el.style.opacity = '1';
-      el.style.transform = 'none';
-      el.style.clipPath = 'none';
+    // 2. Reveal hero floating elements (inline opacity:0 set by GSAP)
+    document.querySelectorAll('.h-entrance, .h-bubble, .h-emoji, .h-graph, .h-laptop, .h-fb, .h-ig, .h-wa, .h-like-btn, .h-comment-btn, .h-share-btn, .h-mkt').forEach((el) => {
+      el.style.setProperty('opacity', '1', 'important');
+      el.style.setProperty('transform', 'none', 'important');
+      el.style.setProperty('clip-path', 'none', 'important');
+    });
+
+    // 3. Force all elements with inline opacity:0 to be visible
+    document.querySelectorAll('*').forEach((el) => {
+      const style = el.getAttribute('style') || '';
+      if (style.includes('opacity: 0') || style.includes('opacity:0')) {
+        el.style.setProperty('opacity', '1', 'important');
+        el.style.setProperty('transform', 'none', 'important');
+      }
     });
 
     // 2. Hide floating widgets and decorative spacers
@@ -112,10 +156,15 @@ async function buildAllPdfs() {
       hero.style.minHeight = '900px';
       hero.style.maxHeight = '900px';
     }
+    const heroContent = document.querySelector('#home .pc-container');
+    if (heroContent) {
+      heroContent.style.minHeight = '0px';
+      heroContent.style.height = '100%';
+    }
   });
 
   const scrollHeight = await page.evaluate(() => document.documentElement.scrollHeight);
-  const continuousPath = path.resolve('/Users/veritan/Work/agency-site/PC-Creations-Website-Continuous.pdf');
+  const continuousPath = path.resolve(process.cwd(), 'PC-Creations-Website-Continuous.pdf');
   await page.pdf({
     path: continuousPath,
     width: '1440px',
@@ -296,6 +345,36 @@ async function buildAllPdfs() {
         overflow: hidden !important;
       }
 
+      /* ── CLIENTS SECTION (Brands Showcase Slide) ── */
+      #clients {
+        padding-top: 4rem !important;
+        padding-bottom: 3rem !important;
+        height: 960px !important;
+        min-height: 960px !important;
+        max-height: 960px !important;
+        box-sizing: border-box !important;
+        page-break-before: always !important;
+        break-before: page !important;
+        overflow: hidden !important;
+      }
+      #clients .group {
+        mask-image: none !important;
+        -webkit-mask-image: none !important;
+        overflow: visible !important;
+      }
+      #clients .animate-client-marquee {
+        animation: none !important;
+        transform: none !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        row-gap: 1.25rem !important;
+        max-width: 1280px !important;
+        margin: 0 auto !important;
+      }
+      #clients [aria-hidden="true"] {
+        display: none !important;
+      }
+
       /* ── CONTACT SECTION ── */
       #contact {
         padding-top: 4.5rem !important;
@@ -337,7 +416,7 @@ async function buildAllPdfs() {
     document.head.appendChild(style);
   });
 
-  const presentationPath = path.resolve('/Users/veritan/Work/agency-site/PC-Creations-Website.pdf');
+  const presentationPath = path.resolve(process.cwd(), 'PC-Creations-Website.pdf');
   await page.pdf({
     path: presentationPath,
     width: '1440px',
@@ -351,7 +430,7 @@ async function buildAllPdfs() {
   // 3. BUILD STANDARD A4 LANDSCAPE PDF (Printable Paper Document)
   // ─────────────────────────────────────────────────────────────
   console.log('Generating 3. Standard A4 Landscape Printable PDF...');
-  const a4Path = path.resolve('/Users/veritan/Work/agency-site/PC-Creations-Website-A4.pdf');
+  const a4Path = path.resolve(process.cwd(), 'PC-Creations-Website-A4.pdf');
   await page.pdf({
     path: a4Path,
     format: 'A4',
