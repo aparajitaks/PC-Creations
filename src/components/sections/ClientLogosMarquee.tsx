@@ -18,6 +18,12 @@ const CLIENT_LOGOS = [
     height: 200,
   },
   {
+    name: "ISKCON Bangalore",
+    src: "/assets/clients/client-iskcon-bangalore.png",
+    width: 502,
+    height: 214,
+  },
+  {
     name: "Paramathma Pub Bar & Restaurant",
     src: "/assets/clients/client-paramathma.png",
     width: 424,
@@ -39,6 +45,12 @@ const CLIENT_LOGOS = [
     name: "World Tour International",
     src: "/assets/clients/client-world-tour.png",
     width: 593,
+    height: 214,
+  },
+  {
+    name: "Basil Woods Juniors",
+    src: "/assets/clients/client-basil-woods.png",
+    width: 285,
     height: 214,
   },
   {
