@@ -6,7 +6,7 @@
  * CONTENT:
  *   Only verified content from actual PC Creations project files:
  *   - banner_theme.jpg  — brand banner (real asset)
- *   - founder.jpg       — real photo
+ *   - founder.jpg       — real photo (Akash Shetty)
  *   - Brand tagline "Build brand, Not business" (from banner_theme.jpg)
  *   - "In a digital world, be the trend — not the follower" (from banner_theme.jpg)
  *
@@ -168,17 +168,22 @@ export function AboutSection() {
             >
               <img
                 src="/assets/founder.jpg"
-                alt="PC Creations founder"
+                alt="Akash Shetty"
                 className="w-full h-full object-cover"
                 loading="lazy"
               />
               {/* Subtle bottom shadow overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#000000] via-transparent to-transparent opacity-50" />
-              {/* Index label */}
-              <div className="absolute bottom-6 left-6">
-                <span className="text-[11px] font-mono font-bold text-[#FF9D00] tracking-widest uppercase bg-[rgba(0,0,0,0.60)] backdrop-blur-sm px-3 py-1.5 rounded-full border border-[rgba(255,157,0,0.30)]">
-                  PC Creations Studio
-                </span>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#000000] via-transparent to-transparent opacity-60 pointer-events-none" />
+              {/* Founder label */}
+              <div className="absolute bottom-6 left-6 right-6">
+                <div className="inline-flex flex-col bg-[rgba(0,0,0,0.75)] backdrop-blur-md px-4 py-2.5 rounded-xl border border-[rgba(255,157,0,0.35)] shadow-lg">
+                  <span className="text-sm font-bold text-[#FF9D00] tracking-wide">
+                    Akash Shetty
+                  </span>
+                  <span className="text-[11px] font-mono font-medium text-[rgba(247,248,250,0.85)] tracking-wider mt-0.5">
+                    BCOM , DIMAP,  MAPC,  LLB
+                  </span>
+                </div>
               </div>
             </div>
 

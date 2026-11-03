@@ -9,15 +9,16 @@ import { cn } from "@/lib/cn";
 ───────────────────────────────────────────── */
 
 const WHY_CARDS = [
-  { icon: "🎯", title: "Placement Support",     body: "Dedicated hiring drives, referrals & interview calls until you land the role." },
-  { icon: "📈", title: "Business Growth Skills", body: "Master revenue, lead-generation and scaling to grow any brand profitably." },
-  { icon: "🤖", title: "AI-Integrated Curriculum", body: "ChatGPT, Gemini & automation woven into every marketing module." },
-  { icon: "🧑‍💼", title: "Industry Mentors",     body: "Trained by working performance marketers — not slideshow trainers." },
-  { icon: "🚀", title: "Live Projects",          body: "Run real Google & Meta ad campaigns with real budgets and real data." },
-  { icon: "🗺️", title: "Career Guidance",       body: "1-on-1 mentoring, portfolio reviews and a clear roadmap to your goal." },
-  { icon: "👥", title: "Small Batch Size",       body: "Small groups so every learner gets personal attention and feedback." },
-  { icon: "💻", title: "Offline + Live Online",  body: "Learn at our Bangalore studio or join interactive live online batches." },
+  { icon: "📜", title: "MSME Verified Certificate", body: "Government recognized certification provided under MSME to validate your expertise." },
+  { icon: "🤖", title: "AI Tools Workshops",       body: "Hands-on workshops on ChatGPT, Gemini, ad automation & AI creative workflows." },
+  { icon: "🧑‍💼", title: "Expert Mentors Support",   body: "Trained and guided by working performance marketers — not slideshow trainers." },
+  { icon: "🚀", title: "Practical Training",       body: "Run real Google & Meta ad campaigns with real budgets, real creatives and live data." },
+  { icon: "🔄", title: "Revision Classes",          body: "Dedicated revision sessions & doubt clearing so every learner achieves mastery." },
+  { icon: "🎯", title: "100% Placement Support",   body: "Optional career track with interview prep, 1-on-1 guidance & internship opportunity." },
+  { icon: "🎁", title: "Free Demo Classes",        body: "Experience our practical teaching methodology live before enrolling." },
+  { icon: "💻", title: "Online + Bangalore Studio",body: "Join interactive live online batches or attend at our Bangalore studios." },
 ];
+
 
 const CURRICULUM = [
   {
@@ -95,32 +96,95 @@ const TESTIMONIALS = [
   },
 ];
 
-const PLANS = [
+interface PlanFeature {
+  text: string;
+  isAddon?: boolean;
+  highlight?: boolean;
+}
+
+interface CoursePlan {
+  name: string;
+  badge?: string;
+  duration: string;
+  mode: string;
+  originalPrice?: string;
+  price: string;
+  feeBreakdown: string;
+  periodNote?: string;
+  features: PlanFeature[];
+  featured: boolean;
+  cta: string;
+  materialsNote?: string;
+}
+
+const PLANS: CoursePlan[] = [
   {
-    name:    "Foundation",
+    name: "Digital Marketing + AI",
+    badge: "Special Festive Offer",
     duration: "2 Months",
-    mode:    "Online / Offline",
-    features: ["Modules 1–3", "Meta & Google Ads", "Live project", "Certificate", "Community access"],
+    mode: "Live Online Classes",
+    originalPrice: "₹10,000",
+    price: "₹7,999",
+    feeBreakdown: "₹7,500 course fees + ₹499 registration fees",
+    periodNote: "Complete Course & MSME Certification",
     featured: false,
-    cta:     "Enquire Now",
+    cta: "Enroll for ₹7,999",
+    materialsNote: "Materials provided (digital access package included)",
+    features: [
+      { text: "We provide this in standard class", highlight: true },
+      { text: "Expert mentors support throughout" },
+      { text: "Practical hands-on campaign training (SEO & Ads)" },
+      { text: "Dedicated AI tools workshops (ChatGPT, Gemini)" },
+      { text: "Weekly revision classes & live doubt sessions" },
+      { text: "Verified certificate provided under MSME", highlight: true },
+      { text: "Free Demo Classes included (limited offer)" },
+    ],
   },
   {
-    name:    "Pro Marketer",
+    name: "Pro + Career Accelerator",
+    badge: "Most Popular • Career Growth",
     duration: "4 Months",
-    mode:    "Online / Offline",
-    features: ["All 7 Modules", "AI Tools", "2 Live projects", "Portfolio review", "Placement support", "Priority mentoring"],
+    mode: "Online / Hybrid",
+    originalPrice: "₹15,000",
+    price: "₹7,999",
+    feeBreakdown: "₹7,500 course fees + ₹499 registration fees (+ Optional Career Add-on)",
+    periodNote: "Standard Course + Premium Career Growth Track",
     featured: true,
-    cta:     "Enroll Now",
+    cta: "Enroll with Career Track",
+    materialsNote: "Includes complete digital agency toolkit & templates",
+    features: [
+      { text: "Everything in Standard Digital Marketing + AI", highlight: true },
+      { text: "Interview Preparation Support", isAddon: true },
+      { text: "One on One Guidance Support", isAddon: true },
+      { text: "Live Projects Workshops (real client ad spend)", isAddon: true },
+      { text: "100% Job Assistance & Placement Support", isAddon: true },
+      { text: "Internship Opportunity Provided at PC Creations", isAddon: true },
+      { text: "Verified MSME Certificate + Portfolio Review" },
+    ],
   },
   {
-    name:    "Agency Ready",
+    name: "Bangalore Classroom",
+    badge: "Classroom Experience",
     duration: "6 Months",
-    mode:    "Bangalore Classroom",
-    features: ["Everything in Pro", "Internship at PC Creations", "1-on-1 mentoring", "Client-facing experience", "Guaranteed interviews"],
+    mode: "Rajajinagar & Indiranagar",
+    price: "Classroom Batch",
+    feeBreakdown: "Physical Workstations & Studio Access",
+    periodNote: "In-Person Immersive Training",
     featured: false,
-    cta:     "Enquire Now",
+    cta: "Book Studio Visit",
+    materialsNote: "Physical training materials & kits provided",
+    features: [
+      { text: "In-person daily classroom training in Bangalore" },
+      { text: "Physical materials & hardware workstation provided" },
+      { text: "Direct daily mentorship with working marketers" },
+      { text: "Live client campaigns & capstone project" },
+      { text: "Guaranteed agency internship at PC Creations" },
+      { text: "100% Placement Support & MSME Certificate" },
+      { text: "Free in-person demo session" },
+    ],
   },
 ];
+
 
 /* ─────────────────────────────────────────────
    SUB-COMPONENTS
@@ -176,7 +240,7 @@ function LeadForm() {
       `Phone: ${form.phone}\n` +
       `Email: ${form.email || 'Not specified'}\n` +
       `Preferred Mode: ${form.mode || 'Not specified'}\n\n` +
-      `I'm interested in the Digital Marketing Course. Please share batch details.`;
+      `I'm interested in the Digital Marketing + AI Course (₹7,500 course fees + ₹499 registration fees = ₹7,999). Please share batch details and book my free demo class.`;
 
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
@@ -196,6 +260,9 @@ function LeadForm() {
     </div>
   ) : (
     <form className="flex flex-col gap-4" onSubmit={handleSubmit} noValidate>
+      <div className="bg-[#FF9D00]/10 border border-[#FF9D00]/30 rounded-xl p-3 text-xs text-[#000000]">
+        🔥 <strong>Special Offer:</strong> ₹7,500 course fees + ₹499 registration fees (Total ₹7,999). Free demo classes available.
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <input required name="name"  value={form.name}  onChange={handleChange} placeholder="Your name *"  className="border border-[rgba(0,0,0,0.15)] rounded-xl px-4 py-3 text-sm text-[#000] placeholder:text-[rgba(0,0,0,0.35)] focus:outline-none focus:border-[#3155E7] bg-white transition-colors" />
         <input required name="phone" value={form.phone} onChange={handleChange} placeholder="Phone number *" type="tel" className="border border-[rgba(0,0,0,0.15)] rounded-xl px-4 py-3 text-sm text-[#000] placeholder:text-[rgba(0,0,0,0.35)] focus:outline-none focus:border-[#3155E7] bg-white transition-colors" />
@@ -203,8 +270,8 @@ function LeadForm() {
       <input name="email" value={form.email} onChange={handleChange} placeholder="Email address" type="email" className="border border-[rgba(0,0,0,0.15)] rounded-xl px-4 py-3 text-sm text-[#000] placeholder:text-[rgba(0,0,0,0.35)] focus:outline-none focus:border-[#3155E7] bg-white transition-colors" />
       <select name="mode" value={form.mode} onChange={handleChange} className="border border-[rgba(0,0,0,0.15)] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#3155E7] bg-white transition-colors" style={{ color: form.mode ? "#000" : "rgba(0,0,0,0.35)" }}>
         <option value="" disabled>Preferred mode</option>
-        <option value="online">Live Online</option>
-        <option value="offline">Classroom – Bangalore</option>
+        <option value="online">Live Online (₹7,500 + ₹499 Reg)</option>
+        <option value="offline">Classroom – Bangalore (Rajajinagar & Indiranagar)</option>
         <option value="either">Either works for me</option>
       </select>
       <button type="submit" className="bg-[#FF9D00] text-[#000000] font-bold text-sm tracking-wider uppercase px-8 py-4 rounded-full hover:bg-[#000000] hover:text-[#F7F8FA] transition-all duration-300">
@@ -229,25 +296,28 @@ export function CoursesPageClient() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] rounded-full bg-[rgba(49,85,231,0.12)] blur-3xl pointer-events-none" />
 
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col items-center text-center gap-8">
-          <span className="text-[11px] font-mono font-bold text-[#FF9D00] tracking-widest uppercase border border-[rgba(255,157,0,0.30)] px-4 py-1.5 rounded-full">
-            PC Creations Digital Institute
-          </span>
+          {/* Festive Offer Badge */}
+          <div className="inline-flex items-center gap-2 border border-[rgba(255,157,0,0.40)] bg-[rgba(255,157,0,0.10)] px-4 py-1.5 rounded-full">
+            <span className="w-2 h-2 rounded-full bg-[#FF9D00] animate-pulse" />
+            <span className="text-[11px] font-mono font-bold text-[#FF9D00] tracking-wider uppercase">
+              Special Offer: ₹7,500 Course Fee + ₹499 Registration Fee • Free Demo Available
+            </span>
+          </div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-[#F7F8FA] tracking-tight leading-[0.92]">
             India&apos;s Most Practical<br />
-            <span className="text-[#FF9D00]">AI Digital Marketing</span><br />
-            Course — Bangalore
+            <span className="text-[#FF9D00]">Digital Marketing + AI</span><br />
+            Classes — Bangalore
           </h1>
 
-          <p className="text-lg text-[rgba(247,248,250,0.60)] max-w-2xl leading-relaxed">
-            Master Meta Ads, Google Ads, SEO, SMM, AI Tools & live projects.
-            Trained by working performance marketers at PC Creations.
-            100% placement support included.
+          <p className="text-lg text-[rgba(247,248,250,0.65)] max-w-2xl leading-relaxed">
+            From SEO to social media, learn easy and quick with AI where it matters most.
+            Trained by expert performance marketers at PC Creations. Verified certificate under MSME.
           </p>
 
           {/* Proof pills */}
           <div className="flex flex-wrap justify-center gap-3">
-            {["Live Agency Projects", "100% Placement Support", "AI-Integrated", "Classroom & Online"].map(p => (
+            {["₹7,500 Course + ₹499 Reg Fee", "Free Demo Classes", "MSME Verified Certificate", "Live Agency Projects", "100% Placement Support"].map(p => (
               <span key={p} className="bg-[rgba(247,248,250,0.08)] border border-[rgba(247,248,250,0.12)] text-[#F7F8FA] text-xs font-medium px-4 py-1.5 rounded-full">{p}</span>
             ))}
           </div>
@@ -369,50 +439,291 @@ export function CoursesPageClient() {
         </div>
       </section>
 
-      {/* ── 6. PRICING ── */}
+      {/* ── 6. PRICING & SPECIAL OFFER ── */}
       <section id="enroll" className="py-20 sm:py-28">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <p className="text-[11px] font-mono font-bold text-[#3155E7] tracking-widest uppercase mb-3">Pricing</p>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 border border-[rgba(49,85,231,0.25)] bg-[rgba(49,85,231,0.06)] px-3.5 py-1 rounded-full mb-3">
+              <span className="text-[11px] font-mono font-bold text-[#3155E7] tracking-widest uppercase">Course Fees & Special Offer</span>
+            </div>
             <h2 className="text-4xl sm:text-5xl font-black text-[#000000] tracking-tight leading-[0.92]">
               Choose your learning path.
             </h2>
-            <p className="text-base text-[rgba(0,0,0,0.52)] mt-4">Contact us for exact fees — EMI options available.</p>
+            <p className="text-base text-[rgba(0,0,0,0.52)] mt-4">
+              Transparent fees: <strong>₹7,500 course fees + ₹499 registration fees</strong> · Free demo classes available.
+            </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {PLANS.map(plan => (
-              <div key={plan.name} className={cn(
-                "rounded-2xl flex flex-col p-7 gap-6 transition-all duration-300",
-                plan.featured
-                  ? "bg-[#000000] border-2 border-[#FF9D00] shadow-[0_0_40px_rgba(255,157,0,0.15)]"
-                  : "bg-white border border-[rgba(0,0,0,0.08)] hover:border-[rgba(0,0,0,0.20)] hover:shadow-md",
-              )}>
-                {plan.featured && (
-                  <span className="text-[10px] font-mono font-bold text-[#FF9D00] tracking-[0.18em] uppercase">Most Popular</span>
-                )}
-                <div>
-                  <h3 className={cn("text-2xl font-black tracking-tight", plan.featured ? "text-[#F7F8FA]" : "text-[#000000]")}>{plan.name}</h3>
-                  <p className={cn("text-sm mt-1", plan.featured ? "text-[rgba(247,248,250,0.50)]" : "text-[rgba(0,0,0,0.50)]")}>{plan.duration} · {plan.mode}</p>
+
+          {/* Special Festive Offer Highlight Banner (Flyer Alignment) */}
+          <div className="relative mb-14 rounded-3xl bg-gradient-to-br from-[#0c0f17] via-[#05070a] to-[#000000] border-2 border-[#FF9D00] p-6 sm:p-10 shadow-[0_20px_60px_rgba(255,157,0,0.15)] overflow-hidden">
+            <div className="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-[rgba(255,157,0,0.15)] blur-3xl pointer-events-none" />
+            <div className="absolute -left-20 -bottom-20 w-80 h-80 rounded-full bg-[rgba(49,85,231,0.15)] blur-3xl pointer-events-none" />
+
+            <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
+              {/* Left Column */}
+              <div className="flex flex-col gap-3 text-center lg:text-left max-w-xl">
+                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2">
+                  <span className="bg-[#FF9D00] text-[#000000] text-[11px] font-black tracking-wider uppercase px-3 py-1 rounded-full">
+                    Special Festive Offer
+                  </span>
+                  <span className="border border-[rgba(247,248,250,0.25)] text-[#F7F8FA] text-[11px] font-mono uppercase tracking-wider px-3 py-1 rounded-full">
+                    Free Demo Classes
+                  </span>
+                  <span className="border border-[rgba(255,157,0,0.4)] text-[#FF9D00] text-[11px] font-mono uppercase tracking-wider px-3 py-1 rounded-full">
+                    Verified MSME Certificate
+                  </span>
                 </div>
-                <ul className="flex flex-col gap-2.5 flex-1">
-                  {plan.features.map(f => (
-                    <li key={f} className={cn("flex items-start gap-2 text-sm leading-snug", plan.featured ? "text-[rgba(247,248,250,0.80)]" : "text-[rgba(0,0,0,0.70)]")}>
-                      <span className="text-[#FF9D00] mt-0.5">✓</span>
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <a href="#contact-form" className={cn(
-                  "block text-center text-sm font-bold tracking-wider uppercase px-6 py-3.5 rounded-full transition-all duration-300",
+
+                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#F7F8FA] tracking-tight">
+                  Digital Marketing + AI Classes
+                </h3>
+                <p className="text-sm text-[rgba(247,248,250,0.70)] leading-relaxed">
+                  From SEO to social media, we help you to learn easy and quick with AI where it matters most.
+                  Includes expert mentors support, practical campaign training, AI workshops, and revision classes.
+                </p>
+
+                {/* Additional Course notice from poster */}
+                <div className="inline-flex items-center gap-2 text-xs text-[#FF9D00] bg-[rgba(255,157,0,0.08)] border border-[rgba(255,157,0,0.20)] rounded-xl px-3.5 py-2 mt-1">
+                  <span>👑</span>
+                  <span><strong>Premium Additional Course (Optional):</strong> Interview Preparation Support, One on One Guidance Support, Live Projects Workshops, 100% Job Assistance & Internship Opportunity Provided.</span>
+                </div>
+              </div>
+
+              {/* Right Column: Pricing Tag */}
+              <div className="flex flex-col items-center lg:items-end text-center lg:text-right shrink-0 bg-[rgba(255,255,255,0.04)] border border-[rgba(255,255,255,0.10)] rounded-2xl p-6 sm:p-7 min-w-[280px]">
+                <span className="text-xs font-mono font-bold text-[rgba(247,248,250,0.50)] uppercase tracking-widest">
+                  Online Class Special Offer
+                </span>
+                
+                <div className="flex items-baseline gap-3 my-1">
+                  <span className="text-lg sm:text-xl font-bold text-[rgba(247,248,250,0.40)] line-through decoration-red-500 decoration-2">
+                    ₹10,000/-
+                  </span>
+                  <span className="text-4xl sm:text-5xl font-black text-[#FF9D00] tracking-tight">
+                    ₹7,999/-
+                  </span>
+                </div>
+
+                {/* Exact breakdown highlight */}
+                <div className="bg-[#FF9D00]/15 border border-[#FF9D00]/40 rounded-lg px-3 py-1.5 my-2">
+                  <p className="text-xs font-bold text-[#FF9D00]">
+                    7,500 course fees + 499 registration fees
+                  </p>
+                </div>
+
+                <p className="text-[11px] text-[rgba(247,248,250,0.50)] mb-4">
+                  Full access · MSME verified certificate included
+                </p>
+
+                <div className="flex flex-col w-full gap-2">
+                  <a
+                    href="#contact-form"
+                    className="w-full text-center bg-[#FF9D00] hover:bg-[#F7F8FA] text-[#000000] font-bold text-xs uppercase tracking-wider py-3 px-5 rounded-full transition-all duration-300 shadow-md"
+                  >
+                    Register Now / Book Free Demo
+                  </a>
+                  <a
+                    href={`https://wa.me/917204511681?text=${encodeURIComponent("Hi PC Creations, I'm interested in the Digital Marketing Course (₹7,500 course fees + ₹499 registration fees). Please share batch details.")}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="w-full text-center border border-[rgba(247,248,250,0.25)] hover:border-[#FF9D00] text-[#F7F8FA] hover:text-[#FF9D00] font-semibold text-xs py-2.5 px-4 rounded-full transition-colors flex items-center justify-center gap-1.5"
+                  >
+                    <span>💬 WhatsApp: 72045 11681</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Pricing Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {PLANS.map(plan => (
+              <div
+                key={plan.name}
+                className={cn(
+                  "rounded-3xl flex flex-col p-7 sm:p-8 gap-6 transition-all duration-300 relative",
                   plan.featured
-                    ? "bg-[#FF9D00] text-[#000000] hover:bg-[#F7F8FA]"
-                    : "border border-[rgba(0,0,0,0.20)] text-[#000000] hover:border-[#FF9D00] hover:text-[#FF9D00]",
+                    ? "bg-[#000000] text-[#F7F8FA] border-2 border-[#FF9D00] shadow-[0_15px_45px_rgba(255,157,0,0.18)]"
+                    : "bg-white text-[#000000] border border-[rgba(0,0,0,0.08)] hover:border-[rgba(0,0,0,0.20)] hover:shadow-xl",
+                )}
+              >
+                {/* Header / Badge */}
+                {plan.badge && (
+                  <div className="flex items-center justify-between">
+                    <span
+                      className={cn(
+                        "text-[10px] font-mono font-bold tracking-[0.16em] uppercase px-3 py-1 rounded-full",
+                        plan.featured
+                          ? "bg-[#FF9D00] text-[#000000]"
+                          : "bg-[rgba(49,85,231,0.08)] text-[#3155E7] border border-[rgba(49,85,231,0.15)]",
+                      )}
+                    >
+                      {plan.badge}
+                    </span>
+                    <span className={cn(
+                      "text-[11px] font-mono",
+                      plan.featured ? "text-[rgba(247,248,250,0.45)]" : "text-[rgba(0,0,0,0.40)]",
+                    )}>
+                      {plan.duration}
+                    </span>
+                  </div>
+                )}
+
+                <div>
+                  <h3
+                    className={cn(
+                      "text-2xl font-black tracking-tight",
+                      plan.featured ? "text-[#F7F8FA]" : "text-[#000000]",
+                    )}
+                  >
+                    {plan.name}
+                  </h3>
+                  <p
+                    className={cn(
+                      "text-xs mt-1 font-medium",
+                      plan.featured ? "text-[rgba(247,248,250,0.60)]" : "text-[rgba(0,0,0,0.50)]",
+                    )}
+                  >
+                    {plan.mode}
+                  </p>
+                </div>
+
+                {/* Price block */}
+                <div className={cn(
+                  "py-3 border-y",
+                  plan.featured ? "border-[rgba(255,255,255,0.12)]" : "border-[rgba(0,0,0,0.08)]",
                 )}>
+                  <div className="flex items-baseline gap-2">
+                    {plan.originalPrice && (
+                      <span className="text-sm font-semibold line-through text-red-500">
+                        {plan.originalPrice}
+                      </span>
+                    )}
+                    <span
+                      className={cn(
+                        "text-3xl sm:text-4xl font-black tracking-tight",
+                        plan.featured ? "text-[#FF9D00]" : "text-[#000000]",
+                      )}
+                    >
+                      {plan.price}
+                    </span>
+                  </div>
+                  <p
+                    className={cn(
+                      "text-xs font-bold mt-1.5",
+                      plan.featured ? "text-[#FF9D00]" : "text-[#3155E7]",
+                    )}
+                  >
+                    {plan.feeBreakdown}
+                  </p>
+                  {plan.periodNote && (
+                    <p
+                      className={cn(
+                        "text-[11px] mt-0.5",
+                        plan.featured ? "text-[rgba(247,248,250,0.50)]" : "text-[rgba(0,0,0,0.45)]",
+                      )}
+                    >
+                      {plan.periodNote}
+                    </p>
+                  )}
+                </div>
+
+                {/* Features List */}
+                <div className="flex-1 flex flex-col gap-3">
+                  <p
+                    className={cn(
+                      "text-[11px] font-mono font-bold uppercase tracking-wider",
+                      plan.featured ? "text-[rgba(247,248,250,0.60)]" : "text-[rgba(0,0,0,0.45)]",
+                    )}
+                  >
+                    What&apos;s Included:
+                  </p>
+                  <ul className="flex flex-col gap-2.5">
+                    {plan.features.map((f, idx) => (
+                      <li
+                        key={idx}
+                        className={cn(
+                          "flex items-start gap-2.5 text-xs sm:text-sm leading-snug",
+                          plan.featured
+                            ? f.isAddon
+                              ? "text-[#FF9D00] font-semibold"
+                              : "text-[rgba(247,248,250,0.85)]"
+                            : f.highlight
+                            ? "text-[#000000] font-bold"
+                            : "text-[rgba(0,0,0,0.70)]",
+                        )}
+                      >
+                        <span className="text-[#FF9D00] mt-0.5 shrink-0">
+                          {f.isAddon ? "★" : "✓"}
+                        </span>
+                        <span>{f.text}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Materials note */}
+                {plan.materialsNote && (
+                  <p
+                    className={cn(
+                      "text-[11px] italic border-t pt-3",
+                      plan.featured
+                        ? "border-[rgba(255,255,255,0.10)] text-[rgba(247,248,250,0.50)]"
+                        : "border-[rgba(0,0,0,0.06)] text-[rgba(0,0,0,0.45)]",
+                    )}
+                  >
+                    ℹ️ {plan.materialsNote}
+                  </p>
+                )}
+
+                {/* CTA */}
+                <a
+                  href="#contact-form"
+                  className={cn(
+                    "block text-center text-xs sm:text-sm font-bold tracking-wider uppercase px-6 py-4 rounded-full transition-all duration-300 shadow-sm",
+                    plan.featured
+                      ? "bg-[#FF9D00] text-[#000000] hover:bg-[#F7F8FA]"
+                      : "bg-[#000000] text-[#FFFFFF] hover:bg-[#3155E7]",
+                  )}
+                >
                   {plan.cta}
                 </a>
               </div>
             ))}
           </div>
+
+          {/* Fee Breakdown & Transparency Box */}
+          <div className="mt-12 bg-white rounded-2xl border border-[rgba(0,0,0,0.08)] p-6 sm:p-8 shadow-sm">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 divide-y md:divide-y-0 md:divide-x divide-[rgba(0,0,0,0.08)]">
+              
+              <div className="flex flex-col gap-1.5 md:pr-6">
+                <span className="text-[11px] font-mono font-bold text-[#3155E7] uppercase tracking-wider">Fee Component 01</span>
+                <h4 className="text-lg font-black text-[#000000]">Course Fees: ₹7,500</h4>
+                <p className="text-xs text-[rgba(0,0,0,0.60)] leading-relaxed">
+                  Covers all live interactive classes, hands-on campaign sessions, dedicated AI tools workshops, and weekly revision doubt-clearing batches.
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-1.5 pt-4 md:pt-0 md:px-6">
+                <span className="text-[11px] font-mono font-bold text-[#FF9D00] uppercase tracking-wider">Fee Component 02</span>
+                <h4 className="text-lg font-black text-[#000000]">Registration Fees: ₹499</h4>
+                <p className="text-xs text-[rgba(0,0,0,0.60)] leading-relaxed">
+                  Covers student LMS account setup, verified certificate issuance under MSME, digital learning materials access, and seat reservation.
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-1.5 pt-4 md:pt-0 md:pl-6">
+                <span className="text-[11px] font-mono font-bold text-[#10A37F] uppercase tracking-wider">Total Special Offer</span>
+                <h4 className="text-lg font-black text-[#000000]">Total: ₹7,999 <span className="text-xs font-normal text-red-500 line-through">₹10,000</span></h4>
+                <p className="text-xs text-[rgba(0,0,0,0.60)] leading-relaxed">
+                  Limited time offer. Free demo classes available before enrollment. Helpline: <a href="tel:+917204511681" className="font-bold underline text-[#000000]">72045 11681</a> / <a href="tel:+917204184681" className="font-bold underline text-[#000000]">72041 84681</a>.
+                </p>
+              </div>
+
+            </div>
+          </div>
+
         </div>
       </section>
 
@@ -427,10 +738,10 @@ export function CoursesPageClient() {
               <span className="text-[#3155E7]">demo session.</span>
             </h2>
             <p className="text-base text-[rgba(0,0,0,0.55)] leading-relaxed max-w-sm">
-              Share your details and our counsellor will reach out with batch timings, fees and the full syllabus — no obligation, just clarity.
+              Share your details and our counselor will reach out with batch timings, fee confirmation (<strong>₹7,500 course fee + ₹499 registration fee</strong>), and demo link.
             </p>
             <ul className="flex flex-col gap-3">
-              {["Live interactive demo session", "Personalised career roadmap", "Instant brochure download", "EMI & fee options explained"].map(b => (
+              {["Live interactive demo session", "Personalised career roadmap", "Verified certificate under MSME", "EMI & fee options explained"].map(b => (
                 <li key={b} className="flex items-center gap-2.5 text-sm text-[rgba(0,0,0,0.70)]">
                   <span className="w-5 h-5 rounded-full bg-[rgba(49,85,231,0.10)] flex items-center justify-center shrink-0">
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 3.5-4" stroke="#3155E7" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -439,9 +750,14 @@ export function CoursesPageClient() {
                 </li>
               ))}
             </ul>
-            {/* Direct contact */}
+            {/* Direct contact with both flyer numbers */}
             <div className="flex flex-col gap-2 pt-4 border-t border-[rgba(0,0,0,0.08)]">
-              <a href="tel:+917204511681" className="text-sm text-[rgba(0,0,0,0.55)] hover:text-[#000000] transition-colors duration-200">📞 72045 11681</a>
+              <div className="flex flex-wrap items-center gap-2 text-sm text-[rgba(0,0,0,0.75)]">
+                <span>📞 Call / WhatsApp:</span>
+                <a href="tel:+917204511681" className="font-bold text-[#000000] hover:text-[#3155E7] transition-colors duration-200">72045 11681</a>
+                <span>/</span>
+                <a href="tel:+917204184681" className="font-bold text-[#000000] hover:text-[#3155E7] transition-colors duration-200">72041 84681</a>
+              </div>
               <a href="mailto:pccreations25@gmail.com" className="text-sm text-[rgba(0,0,0,0.55)] hover:text-[#000000] transition-colors duration-200">✉️ pccreations25@gmail.com</a>
               <p className="text-sm text-[rgba(0,0,0,0.55)]">📍 Rajajinagar & Indiranagar, Bangalore</p>
             </div>

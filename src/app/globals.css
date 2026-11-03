@@ -1084,3 +1084,117 @@ section {
   }
 }
 
+/* ============================================================
+   PRINT STYLESHEET — High-Fidelity PDF & Print Export
+   Ensures zero broken layouts, prevents card slicing,
+   preserves full colors, and handles animations cleanly.
+   ============================================================ */
+@media print {
+  *, *::before, *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  html, body {
+    width: 100% !important;
+    background-color: #F7F8FA !important;
+  }
+
+  /* Force all animated and hidden elements into full visibility */
+  .gsap-hidden,
+  .reveal-up,
+  .reveal-fade,
+  .reveal-scale,
+  .reveal-left,
+  .reveal-right,
+  .reveal-clip,
+  [data-stagger-child],
+  .h-entrance,
+  .h-bubble,
+  .h-emoji,
+  .h-graph,
+  .about-headline .line,
+  .contact-headline .line,
+  .port-headline span,
+  .process-step,
+  .about-eyebrow,
+  .about-body,
+  .about-pill,
+  .about-image-wrap,
+  .contact-eyebrow,
+  .contact-sub,
+  .contact-form,
+  .process-header,
+  .svc-hero-label,
+  .svc-hero-sub,
+  .svc-hero-line span,
+  .svc-block,
+  .svc-cta,
+  .svc-cta-graphic,
+  .pricing-header,
+  .pricing-card,
+  .location-info,
+  .location-map,
+  .location-map-button {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    visibility: visible !important;
+  }
+
+  /* Navbar: static on first page only (prevents overlapping subsequent pages) */
+  #navbar {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: none !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+  }
+
+  #mobile-menu-toggle,
+  #mobile-menu {
+    display: none !important;
+  }
+
+  /* Hide floating widgets */
+  a[aria-label="Call PC Creations"],
+  a[aria-label="Chat with PC Creations on WhatsApp"] {
+    display: none !important;
+  }
+
+  /* Hide decorative floating background elements */
+  #results > div.pointer-events-none,
+  #services > div.overflow-hidden {
+    display: none !important;
+  }
+
+  /* Prevent card splitting across pages */
+  .pricing-card,
+  .svc-block,
+  .svc-cta,
+  .process-step,
+  [data-stagger-child],
+  .location-info,
+  .location-map,
+  .about-image-wrap,
+  article,
+  figure,
+  img,
+  svg,
+  video {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    break-after: avoid !important;
+    page-break-after: avoid !important;
+  }
+}
+
