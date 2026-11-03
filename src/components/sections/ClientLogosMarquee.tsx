@@ -24,6 +24,12 @@ const CLIENT_LOGOS = [
     height: 200,
   },
   {
+    name: "Agastya Academy",
+    src: "/assets/clients/client-agastya-academy.png",
+    width: 226,
+    height: 219,
+  },
+  {
     name: "World Tour International",
     src: "/assets/clients/client-world-tour.png",
     width: 593,
@@ -36,10 +42,22 @@ const CLIENT_LOGOS = [
     height: 200,
   },
   {
+    name: "Samruddhi Construction",
+    src: "/assets/clients/client-samruddhi-construction.png",
+    width: 222,
+    height: 213,
+  },
+  {
     name: "Sri Tourist",
     src: "/assets/clients/client-sritourist.png",
     width: 215,
     height: 201,
+  },
+  {
+    name: "CourierFort Easy Shipping",
+    src: "/assets/clients/client-courierfort.png",
+    width: 536,
+    height: 213,
   },
   {
     name: "Pandith Kunal Guruji",
@@ -52,6 +70,12 @@ const CLIENT_LOGOS = [
     src: "/assets/clients/client-prana-yoga.png",
     width: 214,
     height: 214,
+  },
+  {
+    name: "Sri Sai Coaching Classes",
+    src: "/assets/clients/client-sri-sai-coaching.png",
+    width: 226,
+    height: 218,
   },
   {
     name: "Sanvi Travels",
@@ -69,6 +93,12 @@ const CLIENT_LOGOS = [
     name: "Hanu Travels Brookefield",
     src: "/assets/clients/client-hanu-travels.png",
     width: 214,
+    height: 214,
+  },
+  {
+    name: "Jaya's Space Co Works and Beyond",
+    src: "/assets/clients/client-jayas-space.png",
+    width: 249,
     height: 214,
   },
   {

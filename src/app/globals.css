@@ -1101,7 +1101,7 @@ section {
   display: flex;
   flex-shrink: 0;
   min-width: 100%;
-  animation: client-marquee-scroll 48s linear infinite;
+  animation: client-marquee-scroll 55s linear infinite;
   will-change: transform;
 }
 
