@@ -30,10 +30,34 @@ const CLIENT_LOGOS = [
     height: 200,
   },
   {
+    name: "Sri Tourist",
+    src: "/assets/clients/client-sritourist.png",
+    width: 215,
+    height: 201,
+  },
+  {
     name: "Pandith Kunal Guruji",
     src: "/assets/clients/client-kunal-guruji.png",
     width: 210,
     height: 200,
+  },
+  {
+    name: "Sanvi Travels",
+    src: "/assets/clients/client-sanvi-travels.png",
+    width: 255,
+    height: 201,
+  },
+  {
+    name: "Dreams 2 Heaven Tours & Travels",
+    src: "/assets/clients/client-dreams-2-heaven.png",
+    width: 281,
+    height: 201,
+  },
+  {
+    name: "Nisarga Holidays",
+    src: "/assets/clients/client-nisarga-holidays.png",
+    width: 226,
+    height: 219,
   },
   {
     name: "Suraksha Tours & Travels",
@@ -41,11 +65,16 @@ const CLIENT_LOGOS = [
     width: 215,
     height: 199,
   },
+  {
+    name: "Swarna Tours & Travels",
+    src: "/assets/clients/client-swarna-tours.png",
+    width: 227,
+    height: 219,
+  },
 ];
 
-// Repeat 4x to ensure uninterrupted track width on any viewport size
+// Repeat 3x to ensure uninterrupted track width on any viewport size
 const MARQUEE_ITEMS = [
-  ...CLIENT_LOGOS,
   ...CLIENT_LOGOS,
   ...CLIENT_LOGOS,
   ...CLIENT_LOGOS,
@@ -117,3 +146,4 @@ export function ClientLogosMarquee() {
     </section>
   );
 }
+
