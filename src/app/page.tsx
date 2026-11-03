@@ -27,6 +27,7 @@ import {
   ServicesSection,
   PricingSection,
   AboutSection,
+  ClientLogosMarquee,
   ProcessSection,
   ContactSection,
   LocationSection,
@@ -106,6 +107,9 @@ export default function Home() {
 
         {/* ── 06 ABOUT ── */}
         <AboutSection />
+
+        {/* ── CLIENT LOGOS MOVING TICKER ── */}
+        <ClientLogosMarquee />
 
         {/* ── 07 CONTACT — final CTA ── */}
         <ContactSection />

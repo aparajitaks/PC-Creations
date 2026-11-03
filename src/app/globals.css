@@ -1085,6 +1085,37 @@ section {
 }
 
 /* ============================================================
+   CLIENT LOGOS INFINITE MARQUEE
+   Smooth continuous ticker with pause on hover
+   ============================================================ */
+@keyframes client-marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-client-marquee {
+  display: flex;
+  flex-shrink: 0;
+  min-width: 100%;
+  animation: client-marquee-scroll 32s linear infinite;
+  will-change: transform;
+}
+
+.group:hover .animate-client-marquee {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-client-marquee {
+    animation-play-state: paused;
+  }
+}
+
+/* ============================================================
    PRINT STYLESHEET — High-Fidelity PDF & Print Export
    Ensures zero broken layouts, prevents card slicing,
    preserves full colors, and handles animations cleanly.
@@ -1137,7 +1168,8 @@ section {
   .pricing-card,
   .location-info,
   .location-map,
-  .location-map-button {
+  .location-map-button,
+  .animate-client-marquee {
     opacity: 1 !important;
     transform: none !important;
     clip-path: none !important;
