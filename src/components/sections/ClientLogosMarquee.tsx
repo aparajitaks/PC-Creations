@@ -24,6 +24,12 @@ const CLIENT_LOGOS = [
     height: 200,
   },
   {
+    name: "World Tour International",
+    src: "/assets/clients/client-world-tour.png",
+    width: 593,
+    height: 214,
+  },
+  {
     name: "Siddaganga Holidays",
     src: "/assets/clients/client-siddaganga-holidays.png",
     width: 333,
@@ -42,16 +48,40 @@ const CLIENT_LOGOS = [
     height: 200,
   },
   {
+    name: "Prana Yoga Studio",
+    src: "/assets/clients/client-prana-yoga.png",
+    width: 214,
+    height: 214,
+  },
+  {
     name: "Sanvi Travels",
     src: "/assets/clients/client-sanvi-travels.png",
     width: 255,
     height: 201,
   },
   {
+    name: "Radiant Expeditions Tours & Travels",
+    src: "/assets/clients/client-radiant-expeditions.png",
+    width: 222,
+    height: 214,
+  },
+  {
+    name: "Hanu Travels Brookefield",
+    src: "/assets/clients/client-hanu-travels.png",
+    width: 214,
+    height: 214,
+  },
+  {
     name: "Dreams 2 Heaven Tours & Travels",
     src: "/assets/clients/client-dreams-2-heaven.png",
     width: 281,
     height: 201,
+  },
+  {
+    name: "Pranav Build Home",
+    src: "/assets/clients/client-pranav-build-home.png",
+    width: 227,
+    height: 218,
   },
   {
     name: "Nisarga Holidays",
@@ -73,9 +103,8 @@ const CLIENT_LOGOS = [
   },
 ];
 
-// Repeat 3x to ensure uninterrupted track width on any viewport size
+// Repeat 2x to ensure uninterrupted track width on any viewport size
 const MARQUEE_ITEMS = [
-  ...CLIENT_LOGOS,
   ...CLIENT_LOGOS,
   ...CLIENT_LOGOS,
 ];
