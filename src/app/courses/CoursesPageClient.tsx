@@ -224,59 +224,371 @@ function CurriculumAccordion() {
 
 function LeadForm() {
   const [sent, setSent] = useState(false);
-  const [form, setForm] = useState({ name: "", phone: "", email: "", mode: "" });
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [screenshot, setScreenshot] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [form, setForm] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    paymentOption: "both",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setForm(f => ({ ...f, [e.target.name]: e.target.value }));
+    setError(null);
+  };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Check size limit: 12MB
+    if (file.size > 12 * 1024 * 1024) {
+      setError("File is too large. Please upload an image or PDF under 12MB.");
+      return;
+    }
+
+    setScreenshot(file);
+    setError(null);
+
+    if (file.type.startsWith("image/")) {
+      const url = URL.createObjectURL(file);
+      setPreviewUrl(url);
+    } else {
+      setPreviewUrl(null);
+    }
+  };
+
+  const removeFile = () => {
+    setScreenshot(null);
+    if (previewUrl) {
+      URL.revokeObjectURL(previewUrl);
+      setPreviewUrl(null);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "917204511681";
-    
-    // Format the message for WhatsApp (plain text, no formatting)
-    const message = `Course Enquiry from PC Creations Website\n\n` +
-      `Name: ${form.name}\n` +
-      `Phone: ${form.phone}\n` +
-      `Email: ${form.email || 'Not specified'}\n` +
-      `Preferred Mode: ${form.mode || 'Not specified'}\n\n` +
-      `I'm interested in the Digital Marketing + AI Course (₹7,500 course fees + ₹499 registration fees = ₹7,999). Please share batch details and book my free demo class.`;
+    setError(null);
 
-    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+    // Validation
+    if (!form.name.trim()) {
+      setError("Please enter your name.");
+      return;
+    }
 
-    // Open WhatsApp in new tab
-    window.open(whatsappUrl, '_blank');
-    
-    setSent(true);
+    const cleanPhone = form.phone.replace(/[^0-9]/g, "");
+    if (cleanPhone.length < 10) {
+      setError("Please enter a valid 10-digit phone number.");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(form.email.trim())) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    if (!form.paymentOption) {
+      setError("Please select a payment option (Registration Fee 499, Course Fee 7500, or Both).");
+      return;
+    }
+
+    setSubmitting(true);
+
+    try {
+      const formData = new FormData();
+      formData.append("name", form.name.trim());
+      formData.append("phone", form.phone.trim());
+      formData.append("email", form.email.trim().toLowerCase());
+      formData.append("paymentOption", form.paymentOption);
+
+      if (screenshot) {
+        formData.append("paymentScreenshot", screenshot);
+      }
+
+      const res = await fetch("/api/courses/enquiry", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        throw new Error(data.message || "Submission failed. Please try again.");
+      }
+
+      setSent(true);
+    } catch (err) {
+      console.error("Form submission error:", err);
+      setError(err instanceof Error ? err.message : "Something went wrong. Please try again or WhatsApp us directly.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const getOptionLabel = () => {
+    switch (form.paymentOption) {
+      case "registration_fee":
+        return "Registration Fee (₹499)";
+      case "course_fee":
+        return "Course Fee (₹7,500)";
+      case "both":
+      default:
+        return "Both (Course Fee + Registration Fee: ₹7,999)";
+    }
   };
 
   return sent ? (
-    <div className="flex flex-col items-center gap-4 py-12 text-center">
-      <div className="w-14 h-14 rounded-full bg-[#FF9D00] flex items-center justify-center">
-        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 11l5 5L18 6" stroke="#000" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+    <div className="flex flex-col items-center gap-5 py-8 text-center">
+      <div className="w-16 h-16 rounded-full bg-[#10A37F]/15 border border-[#10A37F]/30 flex items-center justify-center">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+          <path d="M5 13l4 4L19 7" stroke="#10A37F" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
       </div>
-      <h3 className="text-xl font-black text-[#000000]">Request Sent!</h3>
-      <p className="text-sm text-[rgba(0,0,0,0.55)]">Our counsellor will call you within 24 hours with batch details.</p>
+
+      <div className="flex flex-col gap-1.5">
+        <h3 className="text-2xl font-black text-[#000000]">Enrollment Submitted!</h3>
+        <p className="text-sm font-semibold text-[#FF9D00]">{getOptionLabel()}</p>
+        <p className="text-xs text-[rgba(0,0,0,0.60)] max-w-sm mt-1 leading-relaxed">
+          Thank you, <strong>{form.name}</strong>! Your details and payment proof have been sent to our team at <strong>pccreations25@gmail.com</strong>.
+        </p>
+      </div>
+
+      <div className="w-full bg-[#F7F8FA] border border-[rgba(0,0,0,0.08)] rounded-xl p-4 text-left text-xs flex flex-col gap-2">
+        <div className="flex justify-between">
+          <span className="text-[rgba(0,0,0,0.45)]">Student:</span>
+          <span className="font-bold text-[#000000]">{form.name}</span>
+        </div>
+        <div className="flex justify-between">
+          <span className="text-[rgba(0,0,0,0.45)]">Phone:</span>
+          <span className="font-mono text-[#000000]">{form.phone}</span>
+        </div>
+        <div className="flex justify-between">
+          <span className="text-[rgba(0,0,0,0.45)]">Email:</span>
+          <span className="font-mono text-[#000000]">{form.email}</span>
+        </div>
+        <div className="flex justify-between">
+          <span className="text-[rgba(0,0,0,0.45)]">Payment Proof:</span>
+          <span className="font-bold text-[#10A37F]">
+            {screenshot ? `✓ ${screenshot.name}` : "Pending / Free Demo"}
+          </span>
+        </div>
+      </div>
+
+      <div className="flex flex-col w-full gap-2.5 mt-2">
+        <a
+          href={`https://wa.me/917204511681?text=${encodeURIComponent(
+            `Hi PC Creations, I have just submitted the enrollment form for ${form.name} (${getOptionLabel()}). Please confirm my seat!`
+          )}`}
+          target="_blank"
+          rel="noreferrer"
+          className="w-full text-center bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold text-xs uppercase tracking-wider py-3.5 px-6 rounded-full transition-all shadow-md flex items-center justify-center gap-2"
+        >
+          <span>💬 Confirm on WhatsApp: 72045 11681</span>
+        </a>
+
+        <button
+          type="button"
+          onClick={() => {
+            setSent(false);
+            setScreenshot(null);
+            setPreviewUrl(null);
+            setForm({ name: "", phone: "", email: "", paymentOption: "both" });
+          }}
+          className="text-xs text-[rgba(0,0,0,0.50)] hover:text-[#000000] underline mt-1"
+        >
+          Submit another response
+        </button>
+      </div>
     </div>
   ) : (
     <form className="flex flex-col gap-4" onSubmit={handleSubmit} noValidate>
+      {/* Top Banner */}
       <div className="bg-[#FF9D00]/10 border border-[#FF9D00]/30 rounded-xl p-3 text-xs text-[#000000]">
-        🔥 <strong>Special Offer:</strong> ₹7,500 course fees + ₹499 registration fees (Total ₹7,999). Free demo classes available.
+        🔥 <strong>Course Enrollment & Payment</strong>: ₹7,500 course fee + ₹499 registration fee (Total ₹7,999).
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <input required name="name"  value={form.name}  onChange={handleChange} placeholder="Your name *"  className="border border-[rgba(0,0,0,0.15)] rounded-xl px-4 py-3 text-sm text-[#000] placeholder:text-[rgba(0,0,0,0.35)] focus:outline-none focus:border-[#3155E7] bg-white transition-colors" />
-        <input required name="phone" value={form.phone} onChange={handleChange} placeholder="Phone number *" type="tel" className="border border-[rgba(0,0,0,0.15)] rounded-xl px-4 py-3 text-sm text-[#000] placeholder:text-[rgba(0,0,0,0.35)] focus:outline-none focus:border-[#3155E7] bg-white transition-colors" />
+
+      {error && (
+        <div className="bg-red-50 border border-red-200 text-red-700 rounded-xl p-3 text-xs flex items-start gap-2">
+          <span className="font-bold shrink-0">⚠️</span>
+          <span>{error}</span>
+        </div>
+      )}
+
+      {/* Name and Phone */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+        <div>
+          <label className="block text-[11px] font-bold text-[rgba(0,0,0,0.70)] uppercase tracking-wider mb-1">
+            Student Name *
+          </label>
+          <input
+            required
+            name="name"
+            value={form.name}
+            onChange={handleChange}
+            placeholder="Your full name"
+            className="w-full border border-[rgba(0,0,0,0.15)] rounded-xl px-4 py-3 text-sm text-[#000] placeholder:text-[rgba(0,0,0,0.35)] focus:outline-none focus:border-[#3155E7] bg-white transition-colors"
+          />
+        </div>
+
+        <div>
+          <label className="block text-[11px] font-bold text-[rgba(0,0,0,0.70)] uppercase tracking-wider mb-1">
+            Phone Number *
+          </label>
+          <input
+            required
+            name="phone"
+            value={form.phone}
+            onChange={handleChange}
+            placeholder="10-digit mobile number"
+            type="tel"
+            className="w-full border border-[rgba(0,0,0,0.15)] rounded-xl px-4 py-3 text-sm text-[#000] placeholder:text-[rgba(0,0,0,0.35)] focus:outline-none focus:border-[#3155E7] bg-white transition-colors"
+          />
+        </div>
       </div>
-      <input name="email" value={form.email} onChange={handleChange} placeholder="Email address" type="email" className="border border-[rgba(0,0,0,0.15)] rounded-xl px-4 py-3 text-sm text-[#000] placeholder:text-[rgba(0,0,0,0.35)] focus:outline-none focus:border-[#3155E7] bg-white transition-colors" />
-      <select name="mode" value={form.mode} onChange={handleChange} className="border border-[rgba(0,0,0,0.15)] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#3155E7] bg-white transition-colors" style={{ color: form.mode ? "#000" : "rgba(0,0,0,0.35)" }}>
-        <option value="" disabled>Preferred mode</option>
-        <option value="online">Live Online (₹7,500 + ₹499 Reg)</option>
-        <option value="offline">Classroom – Bangalore (Rajajinagar & Indiranagar)</option>
-        <option value="either">Either works for me</option>
-      </select>
-      <button type="submit" className="bg-[#FF9D00] text-[#000000] font-bold text-sm tracking-wider uppercase px-8 py-4 rounded-full hover:bg-[#000000] hover:text-[#F7F8FA] transition-all duration-300">
-        Book Free Demo Session
+
+      {/* Email */}
+      <div>
+        <label className="block text-[11px] font-bold text-[rgba(0,0,0,0.70)] uppercase tracking-wider mb-1">
+          Email Address *
+        </label>
+        <input
+          required
+          name="email"
+          value={form.email}
+          onChange={handleChange}
+          placeholder="yourname@gmail.com"
+          type="email"
+          className="w-full border border-[rgba(0,0,0,0.15)] rounded-xl px-4 py-3 text-sm text-[#000] placeholder:text-[rgba(0,0,0,0.35)] focus:outline-none focus:border-[#3155E7] bg-white transition-colors"
+        />
+      </div>
+
+      {/* Payment Options Dropdown */}
+      <div>
+        <label className="block text-[11px] font-bold text-[rgba(0,0,0,0.70)] uppercase tracking-wider mb-1">
+          Select Fee / Payment Option *
+        </label>
+        <select
+          name="paymentOption"
+          value={form.paymentOption}
+          onChange={handleChange}
+          required
+          className="w-full border border-[rgba(0,0,0,0.15)] rounded-xl px-4 py-3 text-sm font-semibold text-[#000000] focus:outline-none focus:border-[#3155E7] bg-white transition-colors"
+        >
+          <option value="registration_fee">1. Registration Fee – ₹499</option>
+          <option value="course_fee">2. Course Fee – ₹7,500</option>
+          <option value="both">3. Both (Course Fee + Registration Fee: ₹7,999)</option>
+        </select>
+      </div>
+
+      {/* Payment Information Box */}
+      <div className="bg-[rgba(49,85,231,0.05)] border border-[rgba(49,85,231,0.18)] rounded-xl p-3.5 flex flex-col gap-1.5">
+        <div className="flex items-center justify-between">
+          <span className="text-[11px] font-mono font-bold text-[#3155E7] uppercase tracking-wider">
+            💳 Quick Payment Details
+          </span>
+          <span className="text-[10px] font-mono font-bold bg-[#3155E7] text-white px-2 py-0.5 rounded-full">
+            Instant UPI
+          </span>
+        </div>
+        <p className="text-xs text-[rgba(0,0,0,0.75)] leading-relaxed">
+          Pay via GPay / PhonePe / Paytm / UPI to:
+        </p>
+        <div className="flex flex-wrap items-center gap-2 bg-white border border-[rgba(49,85,231,0.20)] rounded-lg px-3 py-1.5">
+          <span className="text-xs font-mono font-black text-[#000000] select-all">7204511681</span>
+          <span className="text-[10px] text-[rgba(0,0,0,0.45)]">· Akash Shetty / PC Creations</span>
+        </div>
+      </div>
+
+      {/* Payment Screenshot Upload Section */}
+      <div>
+        <div className="flex items-center justify-between mb-1.5">
+          <label className="text-[11px] font-bold text-[rgba(0,0,0,0.85)] uppercase tracking-wider">
+            Upload Payment Screenshot *
+          </label>
+          <span className="text-[10px] text-[rgba(0,0,0,0.45)] font-mono">
+            PNG, JPG, PDF (max 12MB)
+          </span>
+        </div>
+
+        {screenshot ? (
+          <div className="flex items-center justify-between bg-white border-2 border-[#10A37F] rounded-xl p-3 shadow-sm">
+            <div className="flex items-center gap-3 overflow-hidden">
+              {previewUrl ? (
+                <img
+                  src={previewUrl}
+                  alt="Screenshot preview"
+                  className="w-12 h-12 object-cover rounded-lg border border-[rgba(0,0,0,0.10)] shrink-0"
+                />
+              ) : (
+                <div className="w-12 h-12 rounded-lg bg-[#10A37F]/10 text-[#10A37F] flex items-center justify-center font-bold text-lg shrink-0">
+                  📄
+                </div>
+              )}
+              <div className="flex flex-col truncate">
+                <span className="text-xs font-bold text-[#000000] truncate">
+                  {screenshot.name}
+                </span>
+                <span className="text-[10px] text-[rgba(0,0,0,0.45)]">
+                  {(screenshot.size / 1024).toFixed(1)} KB · Ready to send
+                </span>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onClick={removeFile}
+              className="text-xs font-bold text-red-600 hover:text-red-700 bg-red-50 hover:bg-red-100 px-3 py-1.5 rounded-lg transition-colors shrink-0 ml-2"
+            >
+              Change
+            </button>
+          </div>
+        ) : (
+          <label className="flex flex-col items-center justify-center border-2 border-dashed border-[rgba(0,0,0,0.20)] hover:border-[#FF9D00] bg-[rgba(0,0,0,0.01)] hover:bg-[#FFF9EE] rounded-xl p-5 cursor-pointer transition-all group">
+            <input
+              type="file"
+              accept="image/*,.pdf"
+              onChange={handleFileChange}
+              className="hidden"
+            />
+            <div className="w-10 h-10 rounded-full bg-[rgba(255,157,0,0.12)] text-[#FF9D00] flex items-center justify-center text-lg mb-2 group-hover:scale-110 transition-transform">
+              📸
+            </div>
+            <p className="text-xs font-bold text-[#000000] group-hover:text-[#FF9D00] transition-colors">
+              Click to upload payment screenshot
+            </p>
+            <p className="text-[11px] text-[rgba(0,0,0,0.45)] mt-0.5">
+              or drag &amp; drop transaction receipt here
+            </p>
+          </label>
+        )}
+      </div>
+
+      {/* Submit button */}
+      <button
+        type="submit"
+        disabled={submitting}
+        className="w-full bg-[#FF9D00] hover:bg-[#000000] text-[#000000] hover:text-[#F7F8FA] font-bold text-sm tracking-wider uppercase px-8 py-4 rounded-full transition-all duration-300 shadow-md disabled:opacity-50 disabled:cursor-not-allowed mt-2 flex items-center justify-center gap-2"
+      >
+        {submitting ? (
+          <>
+            <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+            </svg>
+            <span>Submitting details...</span>
+          </>
+        ) : (
+          <span>Submit Enrollment &amp; Payment Proof</span>
+        )}
       </button>
-      <p className="text-[11px] text-[rgba(0,0,0,0.40)] text-center">No spam. 100% confidential. No obligation.</p>
+
+      <p className="text-[11px] text-[rgba(0,0,0,0.45)] text-center">
+        Details are securely delivered to <strong>pccreations25@gmail.com</strong> and logged to our admissions team.
+      </p>
     </form>
   );
 }
