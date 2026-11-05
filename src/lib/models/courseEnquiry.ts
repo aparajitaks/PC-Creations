@@ -24,3 +24,4 @@ export interface CourseEnquiry {
   createdAt: Date;
   updatedAt: Date;
 }
+

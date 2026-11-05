@@ -173,3 +173,4 @@ export async function sendCourseEnquiryEmail(payload: CourseEnquiryEmailPayload)
     };
   }
 }
+
