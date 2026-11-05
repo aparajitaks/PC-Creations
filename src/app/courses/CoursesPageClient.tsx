@@ -127,7 +127,7 @@ const PLANS: CoursePlan[] = [
     price: "₹7,999",
     feeBreakdown: "₹7,500 course fees + ₹499 registration fees",
     periodNote: "Complete Course & MSME Certification",
-    featured: false,
+    featured: true,
     cta: "Enroll for ₹7,999",
     materialsNote: "Materials provided (digital access package included)",
     features: [
@@ -142,14 +142,13 @@ const PLANS: CoursePlan[] = [
   },
   {
     name: "Pro + Career Accelerator",
-    badge: "Most Popular • Career Growth",
-    duration: "4 Months",
+    badge: "Career Growth Track",
+    duration: "2 Months",
     mode: "Online / Hybrid",
-    originalPrice: "₹15,000",
-    price: "₹7,999",
-    feeBreakdown: "₹7,500 course fees + ₹499 registration fees (+ Optional Career Add-on)",
+    price: "₹15,000",
+    feeBreakdown: "Complete Course + Career Growth Track",
     periodNote: "Standard Course + Premium Career Growth Track",
-    featured: true,
+    featured: false,
     cta: "Enroll with Career Track",
     materialsNote: "Includes complete digital agency toolkit & templates",
     features: [
@@ -171,7 +170,7 @@ const PLANS: CoursePlan[] = [
     feeBreakdown: "Physical Workstations & Studio Access",
     periodNote: "In-Person Immersive Training",
     featured: false,
-    cta: "Book Studio Visit",
+    cta: "Launching Soon",
     materialsNote: "Physical training materials & kits provided",
     features: [
       { text: "In-person daily classroom training in Bangalore" },
@@ -648,9 +647,13 @@ export function CoursesPageClient() {
                           plan.featured
                             ? f.isAddon
                               ? "text-[#FF9D00] font-semibold"
+                              : f.highlight
+                              ? "text-[#FFFFFF] font-bold"
                               : "text-[rgba(247,248,250,0.85)]"
                             : f.highlight
                             ? "text-[#000000] font-bold"
+                            : f.isAddon
+                            ? "text-[#000000] font-semibold"
                             : "text-[rgba(0,0,0,0.70)]",
                         )}
                       >
