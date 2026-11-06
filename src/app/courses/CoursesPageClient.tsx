@@ -484,23 +484,30 @@ function LeadForm() {
         </select>
       </div>
 
-      {/* Payment Information Box */}
-      <div className="bg-[rgba(49,85,231,0.05)] border border-[rgba(49,85,231,0.18)] rounded-xl p-3.5 flex flex-col gap-1.5">
-        <div className="flex items-center justify-between">
+      {/* Scan & Pay QR Code Box */}
+      <div className="bg-white border border-[rgba(0,0,0,0.12)] rounded-2xl p-4 flex flex-col items-center text-center gap-3 shadow-xs">
+        <div className="flex items-center justify-between w-full">
           <span className="text-[11px] font-mono font-bold text-[#3155E7] uppercase tracking-wider">
-            💳 Quick Payment Details
+            Scan &amp; Pay via UPI
           </span>
-          <span className="text-[10px] font-mono font-bold bg-[#3155E7] text-white px-2 py-0.5 rounded-full">
-            Instant UPI
+          <span className="text-[10px] font-mono font-bold bg-[#FF9D00] text-[#000000] px-2.5 py-0.5 rounded-full">
+            All UPI Apps
           </span>
         </div>
-        <p className="text-xs text-[rgba(0,0,0,0.75)] leading-relaxed">
-          Pay via GPay / PhonePe / Paytm / UPI to:
+
+        <div className="relative p-2.5 bg-white border-2 border-[rgba(0,0,0,0.08)] rounded-2xl shadow-sm">
+          <img
+            src="/assets/payment-qr.jpg"
+            alt="PC Creations UPI Payment QR Code"
+            width={200}
+            height={200}
+            className="w-44 h-44 sm:w-48 sm:h-48 object-contain rounded-xl"
+          />
+        </div>
+
+        <p className="text-xs text-[rgba(0,0,0,0.60)] leading-relaxed max-w-xs">
+          Scan with <strong>PhonePe, Google Pay, Paytm</strong> or any UPI app to pay, then upload the receipt below.
         </p>
-        <div className="flex flex-wrap items-center gap-2 bg-white border border-[rgba(49,85,231,0.20)] rounded-lg px-3 py-1.5">
-          <span className="text-xs font-mono font-black text-[#000000] select-all">7204511681</span>
-          <span className="text-[10px] text-[rgba(0,0,0,0.45)]">· Akash Shetty / PC Creations</span>
-        </div>
       </div>
 
       {/* Payment Screenshot Upload Section */}
