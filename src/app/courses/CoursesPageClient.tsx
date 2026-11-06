@@ -526,6 +526,34 @@ function LeadForm() {
         </p>
       </div>
 
+      {/* Bank Transfer Details */}
+      <div className="bg-white border border-[rgba(0,0,0,0.12)] rounded-2xl p-4 shadow-xs">
+        <div className="flex items-center justify-between mb-3">
+          <span className="text-[11px] font-mono font-bold text-[#3155E7] uppercase tracking-wider">
+            Or Pay via Bank Transfer
+          </span>
+          <span className="text-[10px] font-mono font-bold bg-[rgba(0,0,0,0.07)] text-[rgba(0,0,0,0.6)] px-2.5 py-0.5 rounded-full">
+            NEFT / IMPS / RTGS
+          </span>
+        </div>
+        <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 text-sm">
+          <span className="text-[rgba(0,0,0,0.45)] font-medium">Name</span>
+          <span className="font-bold text-[#111]">AKASH S</span>
+
+          <span className="text-[rgba(0,0,0,0.45)] font-medium">Account No.</span>
+          <span className="font-bold text-[#111] font-mono tracking-wide select-all">1172500103392301</span>
+
+          <span className="text-[rgba(0,0,0,0.45)] font-medium">IFSC Code</span>
+          <span className="font-bold text-[#111] font-mono select-all">KARB0000117</span>
+
+          <span className="text-[rgba(0,0,0,0.45)] font-medium">Bank</span>
+          <span className="font-bold text-[#111]">Karnataka Bank, K.G. Road, E.C</span>
+        </div>
+        <p className="text-[11px] text-[rgba(0,0,0,0.45)] mt-3 leading-relaxed">
+          After transfer, upload the payment screenshot below.
+        </p>
+      </div>
+
       {/* Payment Screenshot Upload Section */}
       <div>
         <div className="flex items-center justify-between mb-1.5">
