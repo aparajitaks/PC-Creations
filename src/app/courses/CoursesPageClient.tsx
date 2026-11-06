@@ -491,14 +491,30 @@ function LeadForm() {
             Scan &amp; Pay via UPI
           </span>
           <span className="text-[10px] font-mono font-bold bg-[#FF9D00] text-[#000000] px-2.5 py-0.5 rounded-full">
-            All UPI Apps
+            {form.paymentOption === "registration_fee"
+              ? "₹499"
+              : form.paymentOption === "course_fee"
+              ? "₹7,500"
+              : "₹7,999"}
           </span>
         </div>
 
         <div className="relative p-2.5 bg-white border-2 border-[rgba(0,0,0,0.08)] rounded-2xl shadow-sm">
           <img
-            src="/assets/payment-qr.jpg"
-            alt="PC Creations UPI Payment QR Code"
+            src={
+              form.paymentOption === "registration_fee"
+                ? "/assets/qr-registration-fee.jpg"
+                : form.paymentOption === "course_fee"
+                ? "/assets/qr-course-fee.jpg"
+                : "/assets/qr-both.jpg"
+            }
+            alt={
+              form.paymentOption === "registration_fee"
+                ? "QR code for ₹499 Registration Fee"
+                : form.paymentOption === "course_fee"
+                ? "QR code for ₹7,500 Course Fee"
+                : "QR code for ₹7,999 (Both)"
+            }
             width={200}
             height={200}
             className="w-44 h-44 sm:w-48 sm:h-48 object-contain rounded-xl"
