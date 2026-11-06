@@ -103,9 +103,6 @@ export async function sendCourseEnquiryEmail(payload: CourseEnquiryEmailPayload)
                   <a href="tel:${escapeHtml(payload.phone)}" style="color: #3155E7; text-decoration: none; font-weight: bold;">
                     ${escapeHtml(payload.phone)}
                   </a>
-                  <a href="https://wa.me/${payload.phone.replace(/[^0-9]/g, '')}" style="margin-left: 10px; color: #16a34a; text-decoration: none; font-weight: bold;" target="_blank">
-                    💬 WhatsApp
-                  </a>
                 </td>
               </tr>
               <tr>

@@ -144,7 +144,6 @@ export async function POST(request: NextRequest) {
         budget: `₹${amount}`,
         message: `Course Enrollment Request. Payment Option: ${paymentOptionLabel} (₹${amount}). ${screenshotMeta ? `Screenshot uploaded: ${screenshotMeta.filename}` : 'No screenshot uploaded.'}`,
         status: 'new',
-        whatsappNotification: { status: 'pending' },
         createdAt: new Date(),
         updatedAt: new Date(),
       });

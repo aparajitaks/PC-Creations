@@ -9,12 +9,6 @@
 import React, { useState, useEffect } from "react";
 import { ObjectId } from "mongodb";
 
-interface WhatsAppNotification {
-  status: 'pending' | 'sent' | 'failed';
-  sentAt?: string;
-  error?: string;
-}
-
 interface Enquiry {
   _id: string;
   name: string;
@@ -25,7 +19,6 @@ interface Enquiry {
   budget: string;
   message: string;
   status: "new" | "contacted" | "in_progress" | "converted" | "closed";
-  whatsappNotification: WhatsAppNotification;
   createdAt: string;
   updatedAt: string;
 }
@@ -215,12 +208,6 @@ export default function AdminEnquiriesPage() {
     closed: "bg-gray-500/20 text-gray-400 border-gray-500/30",
   };
 
-  const whatsappStatusColors: Record<string, string> = {
-    sent: "bg-green-500/20 text-green-400 border-green-500/30",
-    failed: "bg-red-500/20 text-red-400 border-red-500/30",
-    pending: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
-  };
-
   return (
     <div className="min-h-screen bg-black text-white p-4 sm:p-8">
       <div className="max-w-7xl mx-auto">
@@ -381,11 +368,6 @@ export default function AdminEnquiriesPage() {
                     >
                       {enquiry.status.replace("_", " ").toUpperCase()}
                     </span>
-                    <span
-                      className={`px-2 py-0.5 rounded text-[10px] font-bold border ${whatsappStatusColors[enquiry.whatsappNotification.status]}`}
-                    >
-                      WhatsApp: {enquiry.whatsappNotification.status.toUpperCase()}
-                    </span>
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-4 mb-4">
@@ -495,31 +477,6 @@ export default function AdminEnquiriesPage() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <p className="text-[rgba(255,255,255,0.5)] text-sm mb-1">WhatsApp Notification</p>
-                    <span
-                      className={`px-3 py-1 rounded-full text-xs font-bold border ${whatsappStatusColors[selectedEnquiry.whatsappNotification.status]}`}
-                    >
-                      {selectedEnquiry.whatsappNotification.status.toUpperCase()}
-                    </span>
-                  </div>
-                  <div>
-                    <p className="text-[rgba(255,255,255,0.5)] text-sm mb-1">WhatsApp Sent At</p>
-                    <p className="text-white">
-                      {selectedEnquiry.whatsappNotification.sentAt
-                        ? new Date(selectedEnquiry.whatsappNotification.sentAt).toLocaleString()
-                        : "Not sent"}
-                    </p>
-                  </div>
-                </div>
-
-                {selectedEnquiry.whatsappNotification.error && (
-                  <div>
-                    <p className="text-[rgba(255,255,255,0.5)] text-sm mb-1">WhatsApp Error</p>
-                    <p className="text-red-400 text-sm">{selectedEnquiry.whatsappNotification.error}</p>
-                  </div>
-                )}
 
                 <div className="pt-4 border-t border-[rgba(255,255,255,0.1)]">
                   <p className="text-[rgba(255,255,255,0.5)] text-sm mb-3">Update Status</p>

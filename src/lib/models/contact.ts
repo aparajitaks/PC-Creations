@@ -1,11 +1,5 @@
 import { ObjectId } from 'mongodb';
 
-export interface WhatsAppNotification {
-  status: 'pending' | 'sent' | 'failed';
-  sentAt?: Date;
-  error?: string;
-}
-
 export interface ContactSubmission {
   _id?: ObjectId;
   name: string;
@@ -16,7 +10,6 @@ export interface ContactSubmission {
   budget?: string;
   message: string;
   status: 'new' | 'contacted' | 'in_progress' | 'converted' | 'closed';
-  whatsappNotification: WhatsAppNotification;
   createdAt: Date;
   updatedAt: Date;
 }

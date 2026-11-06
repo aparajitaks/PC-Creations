@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import clientPromise from '@/lib/mongodb';
 import { ContactSubmission } from '@/lib/models/contact';
-import { ObjectId } from 'mongodb';
-import { sendWhatsAppNotification } from '@/lib/services/whatsappService';
 import { checkRateLimit } from '@/lib/rateLimit';
 
 // Mark this route as dynamic to prevent build-time MongoDB connection
@@ -64,7 +62,7 @@ export async function POST(request: NextRequest) {
     const client = await clientPromise;
     const db = client.db('pc-creations');
 
-    // Step 1: Save to MongoDB first (database is source of truth)
+    // Save to MongoDB
     const submission: Omit<ContactSubmission, '_id'> = {
       name: sanitizedName,
       email: sanitizedEmail,
@@ -74,60 +72,14 @@ export async function POST(request: NextRequest) {
       budget: sanitizedBudget,
       message: sanitizedMessage,
       status: 'new',
-      whatsappNotification: {
-        status: 'pending',
-      },
       createdAt: new Date(),
       updatedAt: new Date(),
     };
 
     const result = await db.collection('contact_submissions').insertOne(submission);
 
-    // Step 2: Send WhatsApp notification (non-blocking)
-    // We do this AFTER database save to ensure enquiry is never lost
-    let whatsappStatus: 'sent' | 'failed' = 'failed';
-    let whatsappError: string | undefined;
+    console.log(`Contact submission ${result.insertedId}: Database=SUCCESS`);
 
-    try {
-      const whatsappResult = await sendWhatsAppNotification({
-        name: sanitizedName,
-        email: sanitizedEmail,
-        phone: sanitizedPhone,
-        company: sanitizedCompany,
-        service: sanitizedService,
-        budget: sanitizedBudget,
-        message: sanitizedMessage,
-      });
-
-      if (whatsappResult.success) {
-        whatsappStatus = 'sent';
-      } else {
-        whatsappError = whatsappResult.error;
-      }
-    } catch (whatsappError) {
-      console.error('WhatsApp notification error:', whatsappError);
-      whatsappError = whatsappError instanceof Error ? whatsappError.message : 'Unknown error';
-    }
-
-    // Step 3: Update database with WhatsApp notification status
-    await db.collection('contact_submissions').updateOne(
-      { _id: result.insertedId },
-      {
-        $set: {
-          whatsappNotification: {
-            status: whatsappStatus,
-            sentAt: whatsappStatus === 'sent' ? new Date() : undefined,
-            error: whatsappError,
-          },
-          updatedAt: new Date(),
-        },
-      }
-    );
-
-    // Log WhatsApp result for monitoring
-    console.log(`Contact submission ${result.insertedId}: Database=SUCCESS, WhatsApp=${whatsappStatus.toUpperCase()}`);
-
-    // Return success even if WhatsApp failed (enquiry is safely stored)
     return NextResponse.json(
       {
         success: true,
