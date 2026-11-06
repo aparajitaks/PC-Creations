@@ -17,7 +17,7 @@
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import Link    from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn }    from "@/lib/cn";
 import { gsap }  from "@/lib/gsap";
 import { Button } from "@/components/ui/Button";
@@ -56,6 +56,7 @@ export function Navbar() {
   const [activeSection,  setActiveSection] = useState<string>("");
   const headerRef = useRef<HTMLElement>(null);
   const pathname  = usePathname();
+  const router    = useRouter();
 
   /** In-page link → active while its section is in view (home page only).
    *  Off-page link → active when we're on its route. */
@@ -115,6 +116,25 @@ export function Navbar() {
     return () => observers.forEach((io) => io.disconnect());
   }, [pathname]);
 
+  // ── Hash scroll on home page load ──
+  // When navigating from /courses → /#results, Next.js lands on "/"
+  // but may not scroll to the hash. This effect fires whenever we arrive
+  // on the home page and scrolls to the hash section.
+  useEffect(() => {
+    if (pathname !== HOME_PATH) return;
+
+    const hash = window.location.hash.replace("#", "");
+    if (!hash) return;
+
+    // Wait for the page to fully render before scrolling
+    const timer = setTimeout(() => {
+      const el = document.getElementById(hash);
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, [pathname]);
+
   // ── Lock body scroll on mobile menu ──
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
@@ -122,19 +142,25 @@ export function Navbar() {
   }, [menuOpen]);
 
   // ── Smooth scroll handler ──
-  // The hrefs stay real ("/#results") so deep links, keyboard activation
-  // and navigation from other routes keep working. We only take over when
-  // the target section exists on this page; `--navbar-offset` scroll
-  // padding keeps the fixed navbar clear of the section heading.
+  // If the section exists on the current page → smooth scroll.
+  // If we're on a different route (e.g. /courses) → navigate to home with
+  // the hash, then let the home page scroll to the right section on mount.
   const handleNavClick = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement>, section: string) => {
-      const target = document.getElementById(section);
-      if (!target) return;
       e.preventDefault();
       setMenuOpen(false);
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
+
+      // Target exists on current page — just smooth scroll
+      const target = document.getElementById(section);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+
+      // On a different route — navigate to home with hash
+      router.push(`/#${section}`);
     },
-    [],
+    [router],
   );
 
   return (
